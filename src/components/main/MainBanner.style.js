@@ -5,21 +5,40 @@ const MainBannerBlock = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 6.5rem;
-  max-width: 900px;
+  max-width: 100%;
   overflow: hidden;
 
   .mainPost {
-    flex: 2;
+    flex: 3;
     position: relative;
     overflow: hidden;
     border-radius: 4px;
     min-width: 180px;
 
     img {
-      min-width: 180px;
-
+      /* min-width: 180px; */
+      filter: brightness(88%);
       width: 100%;
       height: 100%;
+      object-fit: cover;
+      transition: all 0.1s linear;
+    }
+
+    img:hover {
+      transform: scale(1.04);
+    }
+    .user {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .userImg {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 10px;
+      margin-left: 5px;
       object-fit: cover;
     }
     .content {
@@ -32,8 +51,7 @@ const MainBannerBlock = styled.div`
         font-weight: bold;
       }
       h5 {
-        margin: 10px;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
       }
     }
   }
@@ -61,6 +79,9 @@ const MainBannerBlock = styled.div`
       letter-spacing: 0.1rem;
       border-radius: 13px;
     }
+
+
+
   }
 `;
 

@@ -43,9 +43,10 @@ const StyledCarousel = styled.div`
     width: 100%;
     height: 100%;
     position: relative;
+    cursor: pointer;
 
     .bannerContainer {
-      transition: transform 0.5s ease-out;
+      transition: transform 0.7s ease-out;
       transform: translateX(-${(props) => props.currImgIndex * 100}%);
       display: flex;
       width: 100%;
@@ -62,30 +63,38 @@ const StyledCarousel = styled.div`
       display: none;
     }
 
+    img {
+      transition: all 0.1s linear;
+    }
+    img:hover {
+      transform: scale(1.04);
+    }
+
+
     &:hover {
       .imgCarousel {
         transition: transform 0.2s ease 0s;
       }
       .icon {
-        height: 42px;
-        width: 42px;
+        height: 52px;
+        width: 52px;
         border-radius: 50%;
         background-color: ${theme.whiteColor};
-        z-index: 10;
+        z-index: 100;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         color: ${theme.mediumGrayColor};
         ${theme.flexCenter}
         cursor: pointer;
       }
       .icon.left {
-        left: -5%;
+        left: 2%;
       }
 
       .icon.right {
-        right: -5%;
+        right: 2%;
       }
     }
   }

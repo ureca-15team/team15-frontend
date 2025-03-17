@@ -14,7 +14,6 @@ const HeaderBlock = styled.div`
   padding: 10px 10px 10px 0;
   background-color: ${theme.whiteColor};
   border-bottom: 2px solid ${theme.lightGrayColor};
-  border: 1px solid red;
   
 
   .logo {
