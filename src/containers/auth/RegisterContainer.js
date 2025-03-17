@@ -1,11 +1,8 @@
 import Register from "../../components/auth/Register";
 import React, { useState } from "react";
 import { RegisterBlock } from "../../components/auth/Register.style";
-import logo from "../../assets/transparent-logo.png";
-import {
-  useMailCheckMutation,
-  useSignupMutation,
-} from "../../hooks/apis/useAuthQuery";
+import logo from "../../assets/logo.jpg";
+
 import { basicAlert } from "../../shared/alert/SwalAlert";
 import { useNavigate } from "react-router-dom";
 
@@ -23,8 +20,6 @@ const RegisterContainer = () => {
   const [emailVerified, setEmailVerified] = useState(false);
   const [passwordError, setPasswordError] = useState("");
   const [nicknameError, setNicknameError] = useState("");
-  const registerMutate = useSignupMutation();
-  const mailCheckMutate = useMailCheckMutation();
   const navigate = useNavigate();
 
   const handleChange = (e) => {

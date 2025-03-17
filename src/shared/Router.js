@@ -16,18 +16,18 @@ const Router = () => {
             </Template>
           }
         />
-        <Route element={<AuthRoute />}>
+        {/* <Route element={<AuthRoute />}> */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-        </Route>
+        {/* </Route> */}
       </Routes>
     </BrowserRouter>
   );
 };
 
-const AuthRoute = () => {
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-  return isLoggedIn ? <Navigate to="/" /> : <Outlet />;
-};
+// const AuthRoute = () => {
+//   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+//   return isLoggedIn ? <Navigate to="/" /> : <Outlet />;
+// };
 
 export default Router;
