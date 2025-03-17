@@ -7,7 +7,7 @@ const ShopListItemBlock = styled.div`
   position: relative;
   .itemImg {
     position: relative;
-    width: 95%;
+    width: 100%;
     height: 0;
     padding-bottom: 100%;
     overflow: hidden;
@@ -17,7 +17,7 @@ const ShopListItemBlock = styled.div`
       top: 50%;
       left: 50%;
       width: 100%;
-      height: 100%;
+      height: 120%;
       object-fit: cover;
       transform: translate(-50%, -50%);
     }
@@ -39,7 +39,7 @@ const ShopListItemBlock = styled.div`
       display: flex;
       width: 220px;
       gap: 5px;
-      margin-top: 1rem;
+      margin-top: 0.8rem;
 
       span {
         color: ${theme.primaryColor};

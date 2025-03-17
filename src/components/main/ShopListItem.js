@@ -2,7 +2,7 @@ import sale from "../../assets/sale.png";
 import ShopListItemBlock from "./ShopListItem.style";
 
 const ShopListItem = ({ item }) => {
-  const { itemTitle, price, itemName, imageUrl } = item;
+  const { company, price, name, imageUrl } = item;
   console.log("이미지 경로 확인:", imageUrl);
   return (
     <ShopListItemBlock>
@@ -10,8 +10,8 @@ const ShopListItem = ({ item }) => {
         <img src={imageUrl} alt="item" />
       </div>
       <div className="contents">
-        <p className="itemName">{itemName}</p>
-        <p className="title">{itemTitle}</p>
+        <p className="itemName">{company}</p>
+        <p className="title">{name}</p>
         <div className="priceContents">
           <span>SALE</span>
           <p className="price">{price.toLocaleString()}</p>

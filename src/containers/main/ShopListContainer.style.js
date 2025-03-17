@@ -3,8 +3,9 @@ import theme from '../../lib/styles/theme';
 
 const ShopListContainerBlock = styled.div`
   ${theme.flexCenterColumn}
-  max-width: 1050px;
-  padding: 0px 20px;
+
+  max-width: 1200px;
+  margin-top: 70px;
   ${(props) =>
     props.searchItems &&
     css`
@@ -13,21 +14,25 @@ const ShopListContainerBlock = styled.div`
     `}
   h1 {
     width: 100%;
-    margin-left: 50px;
-    font-size: 1.125rem;
+    font-size: 1.4rem;
     font-weight: bold;
   }
+
   li {
+    margin-top: 1rem;
     width: 23%;
     min-width: 170px;
     max-height: 440px;
     cursor: pointer;
   }
   .postsContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
     margin-top: 1rem;
     width: 100%;
     height: auto;
-    ${theme.flexCenter}
     flex-wrap: wrap;
     gap: 10px;
   }
@@ -35,7 +40,7 @@ const ShopListContainerBlock = styled.div`
     ${theme.flexCenter}
     background-color: ${theme.primaryColor};
     letter-spacing: 3px;
-    width: 38px;
+    width: 48px;
     height: 38px;
     border-radius: 10px;
     color: white;
@@ -46,7 +51,8 @@ const ShopListContainerBlock = styled.div`
     padding-right: 7px;
   }
   .pagination {
-    width: 120px;
+    gap: 0.8rem;
+    width: 140px;
     margin-top: 2rem;
     ${theme.flexCenter}
     button {

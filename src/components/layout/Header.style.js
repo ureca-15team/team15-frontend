@@ -13,7 +13,17 @@ const HeaderBlock = styled.div`
   height: 75px;
   padding: 10px 10px 10px 0;
   background-color: ${theme.whiteColor};
-  border-bottom: 2px solid ${theme.lightGrayColor};
+  
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 75px;
+    border-bottom: 2px solid ${theme.lightGrayColor};
+    z-index: -1; /* HeaderBlock의 내용이 가상 요소 위에 표시되도록 함 */
+  }
   
 
   .logo {

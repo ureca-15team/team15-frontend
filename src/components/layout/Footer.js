@@ -28,8 +28,13 @@ const FooterBlock = styled.div`
   margin-top: 5rem;
   gap: 10px;
   height: 190px;
-  width: 100%;
+  width: 100vw;  
+  position: relative; 
+  left: 50%; 
+  transform: translateX(-50%); 
   background-color: ${theme.lightGrayColor};
+
+
   .emailHelp {
     font-size: 1.2rem;
     font-weight: bold;
@@ -44,7 +49,7 @@ const FooterBlock = styled.div`
   }
   .git {
     cursor: pointer;
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     color: ${theme.darkGrayColor};
   }
 `;
