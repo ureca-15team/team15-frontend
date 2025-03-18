@@ -1,34 +1,38 @@
 import HeaderBlock from './Header.style';
 import { Button } from '../common';
 import src from '../../assets/logo.jpg';
-import { IoCartOutline } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { IoCartOutline } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
+
 
 const Header = () => {
+  console.log('Header 렌더링됨'); // ✅ 콘솔에 몇 번 찍히는지 확인
   const navigate = useNavigate();
 
   const onClickToLogin = () => {
-    navigate("/login");
+    navigate('/login');
   };
 
+  const onClickToRegister = () => {
+    navigate('/register');
+  };
 
   return (
     <HeaderBlock>
-      <p className="logo">
-        <img src={src} alt="logo" />
-      </p>
-      <div className="nav">
-        {/* {isLoggedIn ? (
-          <Button size={'small'}>로그아웃</Button>
-        ) : ( */}
-        <>
-          <Button size={'small'} onClick={onClickToLogin}>로그인</Button>
+      <div className="container">
+        <p className="logo">
+          <img src={src} alt="logo" />
+        </p>
+        <div className="nav">
+          <Button size={'small'} onClick={onClickToLogin}>
+            로그인
+          </Button>
           <p style={{ color: 'grey' }}>|</p>
-          <Button size={'small'}>회원가입</Button>
-        </>
-        {/* )} */}
-        <>
-        <IoCartOutline className='cart'/>
+          <Button size={'small'} onClick={onClickToRegister}>
+            회원가입
+          </Button>
+
+          <IoCartOutline className="cart" />
           <Button
             className="buyList"
             size={'small'}
@@ -37,7 +41,7 @@ const Header = () => {
           >
             구매목록
           </Button>
-        </>
+        </div>
       </div>
     </HeaderBlock>
   );

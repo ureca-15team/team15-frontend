@@ -53,27 +53,6 @@ const Register = ({
               </select>
             </span>
           </div>
-          <div>
-            <button
-              className="emailButton"
-              name="emailAuth"
-              onClick={handleMailCheck}>
-              이메일 인증하기
-            </button>
-            {sentEmail && (
-              <>
-                <input
-                  name="emailCheck"
-                  className="emailCheck"
-                  placeholder="인증번호"
-                  value={emailCheck}
-                  onChange={onChangeEmailCheck}></input>
-                <button className="emailCheckButton" onClick={onCheckEmail}>
-                  확인
-                </button>
-              </>
-            )}
-          </div>
         </div>
 
         <div className="registerDiv">

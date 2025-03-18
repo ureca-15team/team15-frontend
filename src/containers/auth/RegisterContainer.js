@@ -91,10 +91,6 @@ const RegisterContainer = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!emailVerified) {
-      basicAlert("이메일 인증을 먼저 완료해주세요.");
-      return;
-    }
 
     const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
     if (!passwordRegex.test(formData.password)) {
@@ -134,11 +130,8 @@ const RegisterContainer = () => {
           alt="register"
           onClick={onClickLogo}></img>
         <div className="registerBox">
-          <label className="registerlabel">회원가입</label>
           <Register
             formData={formData}
-            emailCheck={emailCheck}
-            sentEmail={sentEmail}
             onCheckEmail={onCheckEmail}
             onChangeEmailCheck={onChangeEmailCheck}
             handleMailCheck={handleMailCheck}

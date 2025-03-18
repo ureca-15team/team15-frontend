@@ -1,8 +1,15 @@
-import { BrowserRouter, Route, Routes, Navigate, Outlet } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  Navigate,
+  Outlet,
+} from 'react-router-dom';
 import Template from '../containers/layout/Template';
 import MainPage from '../pages/pages/MainPage';
-import LoginPage from "../pages/auth/LoginPage";
-import RegisterPage from "../pages/auth/RegisterPage";
+import LoginPage from '../pages/auth/LoginPage';
+import RegisterPage from '../pages/auth/RegisterPage';
+import AuthLayout from '../containers/layout/AuthLayout';
 
 const Router = () => {
   return (
@@ -16,10 +23,10 @@ const Router = () => {
             </Template>
           }
         />
-        {/* <Route element={<AuthRoute />}> */}
+        <Route element={<AuthLayout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-        {/* </Route> */}
+        </Route>
       </Routes>
     </BrowserRouter>
   );

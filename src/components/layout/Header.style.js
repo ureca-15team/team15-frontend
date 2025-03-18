@@ -2,34 +2,31 @@ import styled from "styled-components";
 import theme from "../../lib/styles/theme";
 
 const HeaderBlock = styled.div`
-  max-width: 1200px;
-  display: flex;
-  top: 0;
+  width: 100vw;
   position: fixed;
-  justify-content: space-between;
+  top: 0;
+  height: 75px;
+  background-color: ${theme.whiteColor};
+  display: flex;
+  justify-content: center; 
   align-items: center;
   z-index: 100;
-  width: 100%; 
-  height: 75px;
-  padding: 10px 10px 10px 0;
-  background-color: ${theme.whiteColor};
-  
-  &::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 75px;
-    border-bottom: 2px solid ${theme.lightGrayColor};
-    z-index: -1; /* HeaderBlock의 내용이 가상 요소 위에 표시되도록 함 */
+  border-bottom: 2px solid ${theme.lightGrayColor};
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
   }
   
 
   .logo {
-    width: 140px;
+    width: 110px;
     min-width: 80px;
     height: 60px;
+    
     cursor: pointer;
     img {
       width: 100%;

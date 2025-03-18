@@ -3,7 +3,7 @@ import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
     #root{
-      max-width: 1200px;
+      width: 100vw;
       margin: 0 auto;
     }
 

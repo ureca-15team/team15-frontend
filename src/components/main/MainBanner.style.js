@@ -62,6 +62,7 @@ const MainBannerBlock = styled.div`
     border-radius: 4px;
     overflow: hidden;
     position: relative;
+    height: 100%;
 
     .imgLength {
       ${theme.flexCenter}

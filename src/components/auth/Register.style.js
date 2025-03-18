@@ -6,13 +6,18 @@ export const RegisterBlock = styled.section`
   width: calc(100% - 18px);
   margin: auto;
 
+  img{
+    margin-left: 20px;
+  }
+
+
   .registerBox {
     width: 360px;
     margin: 0px auto;
-    padding: 60px 0px;
 
     > div {
       margin: 30px auto 30px 0;
+      padding-bottom:20px ;
       width: 360px;
       border-bottom: 1px solid ${(props) => props.theme.lightGrayColor};
       > h1 {

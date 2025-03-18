@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/logo.jpg";
+import logo from "../../assets/loginLogo.jpg";
 import { Link } from "react-router-dom";
 
 const Login = ({ formData, handleChange, handleSubmit }) => {
