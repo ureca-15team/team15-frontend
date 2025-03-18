@@ -25,13 +25,11 @@ export default Footer;
 
 const FooterBlock = styled.div`
   ${theme.flexCenterColumn}
-  margin-top: 5rem;
+  margin-top: auto;
   gap: 10px;
   height: 190px;
-  width: 100vw;  
-  position: relative; 
-  left: 50%; 
-  transform: translateX(-50%); 
+  width: 100%;  
+
   background-color: ${theme.lightGrayColor};
 
 

@@ -2,16 +2,31 @@ import styled from "styled-components";
 import theme from "../../lib/styles/theme";
 
 export const RegisterBlock = styled.section`
-  padding-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+
+
+  /* padding-top: 40px;
   width: calc(100% - 18px);
-  margin: auto;
+  margin: auto; */
 
   img{
-    margin-left: 20px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 88px;
+    height: 31px;
+    object-fit: contain;
+    cursor: pointer;
   }
 
 
   .registerBox {
+    padding-top: 100px;
     width: 360px;
     margin: 0px auto;
 

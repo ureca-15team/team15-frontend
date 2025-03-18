@@ -1,8 +1,16 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
+
 const GlobalStyle = createGlobalStyle`
+
+    html, body {
+      height: 100%;
+    }
     #root{
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
       width: 100vw;
       margin: 0 auto;
     }

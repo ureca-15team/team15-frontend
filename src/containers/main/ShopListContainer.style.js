@@ -54,6 +54,7 @@ const ShopListContainerBlock = styled.div`
     gap: 0.8rem;
     width: 140px;
     margin-top: 2rem;
+    margin-bottom: 6rem;
     ${theme.flexCenter}
     button {
       background-color: ${theme.lightGrayColor};

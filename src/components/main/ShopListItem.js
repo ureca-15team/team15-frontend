@@ -3,7 +3,6 @@ import ShopListItemBlock from "./ShopListItem.style";
 
 const ShopListItem = ({ item }) => {
   const { company, price, name, imageUrl } = item;
-  console.log("이미지 경로 확인:", imageUrl);
   return (
     <ShopListItemBlock>
       <div className="itemImg">

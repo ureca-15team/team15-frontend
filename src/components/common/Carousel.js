@@ -77,7 +77,7 @@ const StyledSlider = styled(Slider)`
 
   img {
     width: 100%;
-    height: 100%;
+    height: 104%;
     min-height: 100%; 
     object-fit: cover;
     transition: all 0.1s linear;

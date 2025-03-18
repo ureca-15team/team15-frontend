@@ -10,16 +10,27 @@ import MainPage from '../pages/pages/MainPage';
 import LoginPage from '../pages/auth/LoginPage';
 import RegisterPage from '../pages/auth/RegisterPage';
 import AuthLayout from '../containers/layout/AuthLayout';
+import ProductPage from '../pages/pages/ProductPage';
+import ScrollToTop from '../components/common/ScrollToTop';
 
 const Router = () => {
   return (
     <BrowserRouter>
+    <ScrollToTop />
       <Routes>
         <Route
           path="/"
           element={
             <Template header footer>
               <MainPage />
+            </Template>
+          }
+        />
+        <Route
+          path="/item/:itemId"
+          element={
+            <Template header footer>
+              <ProductPage />
             </Template>
           }
         />

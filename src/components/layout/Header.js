@@ -9,6 +9,10 @@ const Header = () => {
   console.log('Header 렌더링됨'); // ✅ 콘솔에 몇 번 찍히는지 확인
   const navigate = useNavigate();
 
+  const onClickToHome = () => {
+    navigate("/");
+  };
+
   const onClickToLogin = () => {
     navigate('/login');
   };
@@ -21,7 +25,7 @@ const Header = () => {
     <HeaderBlock>
       <div className="container">
         <p className="logo">
-          <img src={src} alt="logo" />
+          <img src={src} alt="logo" onClick={onClickToHome} />
         </p>
         <div className="nav">
           <Button size={'small'} onClick={onClickToLogin}>
