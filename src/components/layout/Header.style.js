@@ -45,6 +45,7 @@ const HeaderBlock = styled.div`
       font-size: 1.4rem;
       color: ${theme.mediumGrayColor};
       margin: 0 15px 0 10px;
+      cursor: pointer;
     }
     .buyList {
       width: 80px;

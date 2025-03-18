@@ -21,6 +21,10 @@ const Header = () => {
     navigate('/register');
   };
 
+  const onClickToRCart = () => {
+    navigate('/cart');
+  };
+
   return (
     <HeaderBlock>
       <div className="container">
@@ -36,7 +40,7 @@ const Header = () => {
             회원가입
           </Button>
 
-          <IoCartOutline className="cart" />
+          <IoCartOutline className="cart" onClick={onClickToRCart}/>
           <Button
             className="buyList"
             size={'small'}
