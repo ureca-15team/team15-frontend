@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 export const StyledProductContainer = styled.div `
   max-width: 1280px;
-  width: 100%;
+  width: 100vw;
   margin: 75px auto;
-  padding: 20px;
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
 `;

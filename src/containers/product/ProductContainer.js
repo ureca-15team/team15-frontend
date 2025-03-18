@@ -23,7 +23,7 @@ const ProductContainer = () => {
         price: '20,000원',
         imageUrl: diffuserImage,
         company: 'BBB',
-        description: "상품 B에 대한 설명이고, 이 상품은 BBB에서 만들었습니다. adsfasdfasdfasdfdsafasdf",
+        description: "상품 B에 대한 설명이고, 이 상품은 BBB에서 만들었습니다. adsfasdfasdfasdfdsasdfgdsfgsdfgfasdf",
       },
       {
         itemId: 3,
