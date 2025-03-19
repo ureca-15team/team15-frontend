@@ -53,7 +53,6 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      console.log('로그아웃 성공');
       setIsLoggedIn(false);
       setNickname(''); // 로그아웃 시 닉네임 초기화
       navigate('/'); // 로그아웃 후 로그인 페이지로 이동

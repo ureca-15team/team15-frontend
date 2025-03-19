@@ -44,8 +44,11 @@ export const logout = async () => {
   });
 
   if (!response.ok) {
+    console.error('로그아웃 실패');
     throw new Error('로그아웃 실패');
   }
+  const responseText = await response.text();
+  console.log(responseText); // 로그아웃 성공 메시지 출력
 
-  return response.json();
+  return responseText;
 };

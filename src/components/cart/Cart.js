@@ -14,6 +14,8 @@ import {
   PriceInfoContainer,
   TotalInfoContainer,
 } from './Cart.style';
+// import diffuserImage from '../../assets/product/diffuser.avif'; 
+
 
 const Cart = ({ items }) => {
   const [selectAll, setSelectAll] = useState(false);
@@ -23,7 +25,7 @@ const Cart = ({ items }) => {
     setSelectedItems(
       items.map((product) => ({
         prodcode: product.prodcode,
-        selected: false,
+        selected: true,
         quantity: product.quantity,
       }))
     );
@@ -79,6 +81,8 @@ const Cart = ({ items }) => {
     );
   };
 
+
+
   return (
     <StyledCart>
       <CartContainer>
@@ -119,7 +123,7 @@ const Cart = ({ items }) => {
                 <span>✕</span>
               </ProductSelectContainer>
               <ProductInfoContainer>
-                <img src={require(`../../assets/product/${product.pimg}`).default} alt="" />
+              <img src={require(`../../assets/product/${product.pimg}`)} alt="" />
                 <div>
                   <p>
                     [{product.company}]{product.prodname}
