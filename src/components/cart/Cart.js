@@ -15,15 +15,20 @@ import {
   TotalInfoContainer,
 } from './Cart.style';
 
-const Cart = ({ item }) => {
+const Cart = ({ items }) => {
   const [selectAll, setSelectAll] = useState(false);
-  const [selectedItems, setSelectedItems] = useState(
-    item.content.map((product) => ({
-      itemId: product.itemId,
-      selected: false,
-      quantity: product.quan,
-    })),
-  );
+  const [selectedItems, setSelectedItems] = useState([]);
+
+  useEffect(() => {
+    setSelectedItems(
+      items.map((product) => ({
+        prodcode: product.prodcode,
+        selected: false,
+        quantity: product.quantity,
+      }))
+    );
+  }, [items]);
+
   const [totalPrice, setTotalPrice] = useState(0);
   const [selectedCount, setSelectedCount] = useState(0);
 
@@ -32,16 +37,15 @@ const Cart = ({ item }) => {
       prevSelectedItems.map((product) => ({
         ...product,
         selected: selectAll,
-      })),
+      }))
     );
   }, [selectAll]);
 
   useEffect(() => {
     const selectedProducts = selectedItems.filter((item) => item.selected);
     const total = selectedProducts.reduce((sum, product) => {
-      const selectedItem = item.content.find((i) => i.itemId === product.itemId);
-      const numericPrice = parseInt(selectedItem.price.replace(/,/g, ''), 10);
-      return sum + numericPrice * product.quantity;
+      const selectedItem = items.find((i) => i.prodcode === product.prodcode);
+      return sum + selectedItem.price * product.quantity;
     }, 0);
     setTotalPrice(total);
     setSelectedCount(selectedProducts.length);
@@ -52,29 +56,29 @@ const Cart = ({ item }) => {
     } else if (selectedItems.every((item) => !item.selected)) {
       setSelectAll(false);
     }
-  }, [selectedItems, item.content]);
+  }, [selectedItems, items]);
 
   const handleSelectAllChange = () => {
     setSelectAll(!selectAll);
   };
 
-  const handleProductSelectChange = (itemId) => {
+  const handleProductSelectChange = (prodcode) => {
     setSelectedItems((prevSelectedItems) =>
       prevSelectedItems.map((product) =>
-        product.itemId === itemId
+        product.prodcode === prodcode
           ? { ...product, selected: !product.selected }
-          : product,
-      ),
+          : product
+      )
     );
   };
 
-  const handleQuantityChange = (itemId, newQuantity) => {
+  const handleQuantityChange = (prodcode, newQuantity) => {
     setSelectedItems((prevSelectedItems) =>
       prevSelectedItems.map((product) =>
-        product.itemId === itemId
+        product.prodcode === prodcode
           ? { ...product, quantity: newQuantity }
-          : product,
-      ),
+          : product
+      )
     );
   };
 
@@ -95,37 +99,33 @@ const Cart = ({ item }) => {
           </div>
           <span>선택삭제</span>
         </SelectContainer>
-        {item.content.map((product) => {
-          const isSelected = selectedItems.find(
-            (selectedItem) => selectedItem.itemId === product.itemId,
-          ).selected;
-
-          const quantity = selectedItems.find(
-            (selectedItem) => selectedItem.itemId === product.itemId,
-          ).quantity;
-
-          const numericPrice = parseInt(product.price.replace(/,/g, ''), 10); // 문자열을 숫자로 변환
-          const totalPrice = (numericPrice * quantity).toLocaleString();
+        {items.map((product) => {
+          const selectedItem = selectedItems.find(
+            (selectedItem) => selectedItem.prodcode === product.prodcode
+          );
+          const isSelected = selectedItem ? selectedItem.selected : false;
+          const quantity = selectedItem ? selectedItem.quantity : 1;
+          const totalPrice = (product.price * quantity).toLocaleString();
 
           return (
-            <ProductContainer key={product.itemId}>
+            <ProductContainer key={product.prodcode}>
               <ProductSelectContainer>
                 <div className="select-product">
                   <input
                     type="checkbox"
-                    id={`product-check-${product.itemId}`}
+                    id={`product-check-${product.prodcode}`}
                     checked={isSelected}
-                    onChange={() => handleProductSelectChange(product.itemId)}
+                    onChange={() => handleProductSelectChange(product.prodcode)}
                   />
-                  <label htmlFor={`product-check-${product.itemId}`}></label>
+                  <label htmlFor={`product-check-${product.prodcode}`}></label>
                 </div>
                 <span>✕</span>
               </ProductSelectContainer>
               <ProductInfoContainer>
-                <img src={product.imageUrl} alt="" />
+                <img src={require(`../../assets/product/${product.pimg}`).default} alt="" />
                 <div>
                   <p>
-                    [{product.company}]{product.name}
+                    [{product.company}]{product.prodname}
                   </p>
                   <p>무료배송 | 일반택배</p>
                 </div>
@@ -134,7 +134,7 @@ const Cart = ({ item }) => {
                 <QuantityContainer>
                   <button
                     onClick={() =>
-                      handleQuantityChange(product.itemId, Math.max(1, quantity - 1))
+                      handleQuantityChange(product.prodcode, Math.max(1, quantity - 1))
                     }
                   >
                     −
@@ -143,18 +143,18 @@ const Cart = ({ item }) => {
                     type="number"
                     value={quantity}
                     onChange={(e) =>
-                      handleQuantityChange(product.itemId, Math.max(1, parseInt(e.target.value, 10)))
+                      handleQuantityChange(product.prodcode, Math.max(1, parseInt(e.target.value, 10)))
                     }
                     min="1"
                     max="10"
                   />
                   <button
-                    onClick={() => handleQuantityChange(product.itemId, quantity + 1)}
+                    onClick={() => handleQuantityChange(product.prodcode, quantity + 1)}
                   >
                     +
                   </button>
                 </QuantityContainer>
-                <p>{product.price}</p>
+                <p>{product.price.toLocaleString()}원</p>
               </ProductQuantityContainer>
               <TotalPriceWrapper>
                 <p>{totalPrice} 원</p>
