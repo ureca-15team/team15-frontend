@@ -33,15 +33,6 @@ const Cart = ({ items }) => {
   const [selectedCount, setSelectedCount] = useState(0);
 
   useEffect(() => {
-    setSelectedItems((prevSelectedItems) =>
-      prevSelectedItems.map((product) => ({
-        ...product,
-        selected: selectAll,
-      }))
-    );
-  }, [selectAll]);
-
-  useEffect(() => {
     const selectedProducts = selectedItems.filter((item) => item.selected);
     const total = selectedProducts.reduce((sum, product) => {
       const selectedItem = items.find((i) => i.prodcode === product.prodcode);
@@ -53,13 +44,19 @@ const Cart = ({ items }) => {
     // 모두 선택 상태 업데이트
     if (selectedItems.every((item) => item.selected)) {
       setSelectAll(true);
-    } else if (selectedItems.every((item) => !item.selected)) {
+    } else {
       setSelectAll(false);
     }
   }, [selectedItems, items]);
 
   const handleSelectAllChange = () => {
     setSelectAll(!selectAll);
+    setSelectedItems((prevSelectedItems) =>
+      prevSelectedItems.map((product) => ({
+        ...product,
+        selected: !selectAll,
+      }))
+    );
   };
 
   const handleProductSelectChange = (prodcode) => {
