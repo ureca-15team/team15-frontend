@@ -1,17 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const Register = ({
   formData,
-  emailCheck,
-  sentEmail,
-  onChangeEmailCheck,
-  onCheckEmail,
-  handleMailCheck,
   handleChange,
   handleEmailSelect,
+  handleCheckEmail,
   handleSubmit,
   passwordError,
+  pwCheckError,
   nicknameError,
+  emailMessage,
+  emailAvailable,
 }) => {
   return (
     <div className="registerBox">
@@ -31,14 +30,16 @@ const Register = ({
                 className="emailInput"
                 placeholder="이메일"
                 value={formData.email}
-                onChange={handleChange}></input>
+                onChange={handleChange}
+              />
             </span>
             <span className="emailSeparator">@</span>
             <span>
               <select
                 className="emailSelect"
                 value={formData.emailSelect}
-                onChange={handleEmailSelect}>
+                onChange={handleEmailSelect}
+              >
                 <option value="" disabled>
                   선택해주세요
                 </option>
@@ -46,13 +47,23 @@ const Register = ({
                 <option value="hanmail.net">hanmail.net</option>
                 <option value="daum.net">daum.net</option>
                 <option value="gmail.com">gmail.com</option>
-                <option value="nate.com">nate.com</option>
-                <option value="hotmail.com">hotmail.com</option>
-                <option value="outlook.com">outlook.com</option>
-                <option value="icloud.com">icloud.com</option>
               </select>
             </span>
           </div>
+
+          <button
+            type="button"
+            className="emailCheckButton"
+            onClick={handleCheckEmail}
+          >
+            이메일 중복 확인
+          </button>
+
+          {emailMessage && (
+            <div className={`emailMessage ${emailAvailable ? 'success' : ''}`}>
+              {emailMessage}
+            </div>
+          )}
         </div>
 
         <div className="registerDiv">
@@ -66,9 +77,9 @@ const Register = ({
             className="pwInput"
             placeholder="비밀번호"
             value={formData.password}
-            onChange={handleChange}></input>
-          <br></br>
-          {passwordError && <div className="error">{passwordError}</div>}
+            onChange={handleChange}
+          />
+          {passwordError && <div className="errorMessage">{passwordError}</div>}
         </div>
 
         <div className="registerDiv">
@@ -79,9 +90,11 @@ const Register = ({
             className="pwInput"
             placeholder="비밀번호 확인"
             value={formData.pwCheck}
-            onChange={handleChange}></input>
-          <br></br>
-          {passwordError && <div className="error">{passwordError}</div>}
+            onChange={handleChange}
+          />
+          {formData.pwCheck && pwCheckError && (
+            <div className="errorMessage">{pwCheckError}</div>
+          )}
         </div>
 
         <div className="registerDiv">
@@ -90,14 +103,14 @@ const Register = ({
             다른 유저와 겹치지 않도록 입력해주세요. (2~15자)
           </div>
           <input
-            type="nickname"
+            type="text"
             name="nickname"
             className="nameInput"
             placeholder="별명 (2~14자)"
             value={formData.nickname}
-            onChange={handleChange}></input>
-          <br></br>
-          {nicknameError && <div className="error">{nicknameError}</div>}
+            onChange={handleChange}
+          />
+          {nicknameError && <div className="errorMessage">{nicknameError}</div>}
         </div>
 
         <button type="submit" className="submitButton">

@@ -1,25 +1,26 @@
-import Register from "../../components/auth/Register";
-import React, { useState } from "react";
-import { RegisterBlock } from "../../components/auth/Register.style";
-import logo from "../../assets/logo.jpg";
-
-import { basicAlert } from "../../shared/alert/SwalAlert";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Register from '../../components/auth/Register';
+import { RegisterBlock } from '../../components/auth/Register.style';
+import logo from '../../assets/logo.jpg';
+import { basicAlert } from '../../shared/alert/SwalAlert';
+import { registerUser, checkEmailAvailability } from '../../api/register';
 
 const RegisterContainer = () => {
   const [formData, setFormData] = useState({
-    email: "",
-    emailSelect: "",
-    password: "",
-    pwCheck: "",
-    nickname: "",
+    email: '',
+    emailSelect: '',
+    password: '',
+    pwCheck: '',
+    nickname: '',
   });
-  const [emailCheck, setEmailCheck] = useState("");
-  const [sentEmail, setSentEmail] = useState(false);
-  const [authCode, setAuthCode] = useState(null);
-  const [emailVerified, setEmailVerified] = useState(false);
-  const [passwordError, setPasswordError] = useState("");
-  const [nicknameError, setNicknameError] = useState("");
+
+  const [passwordError, setPasswordError] = useState('');
+  const [pwCheckError, setPwCheckError] = useState('');
+  const [nicknameError, setNicknameError] = useState('');
+  const [emailMessage, setEmailMessage] = useState('');
+  const [emailAvailable, setEmailAvailable] = useState(null);
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -29,121 +30,133 @@ const RegisterContainer = () => {
       [name]: value,
     }));
 
-    // 비밀번호 유효성 검사
-    if (name === "password") {
+    if (name === 'password') {
       const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
-      if (!passwordRegex.test(value)) {
-        setPasswordError("영문, 숫자를 포함해야합니다.");
-      } else {
-        setPasswordError("");
+      setPasswordError(
+        passwordRegex.test(value) ? '' : '영문, 숫자를 포함해야 합니다.',
+      );
+
+      // ✅ 비밀번호가 변경될 때, 비밀번호 확인이 비어있으면 오류 메시지 초기화
+      if (formData.pwCheck) {
+        setPwCheckError(
+          value === formData.pwCheck ? '' : '비밀번호가 일치하지 않습니다.',
+        );
       }
     }
 
-    // 닉네임 유효성 검사
-    if (name === "nickname") {
+    // ✅ 비밀번호 확인 검사 (비밀번호 확인 입력 시에만)
+    if (name === 'pwCheck') {
+      setPwCheckError(
+        value === formData.password ? '' : '비밀번호가 일치하지 않습니다.',
+      );
+    }
+
+    if (name === 'nickname') {
       const nicknameRegex = /^[a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,15}$/;
-      if (!nicknameRegex.test(value)) {
-        setNicknameError("닉네임은 2자 이상 15자 이하여야 합니다.");
-      } else {
-        setNicknameError("");
-      }
+      setNicknameError(
+        nicknameRegex.test(value) ? '' : '닉네임은 2~15자여야 합니다.',
+      );
     }
   };
 
   const handleEmailSelect = (e) => {
-    const { value } = e.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
-      emailSelect: value,
+      emailSelect: e.target.value,
     }));
   };
 
-  const handleMailCheck = async (e) => {
-    setSentEmail(true);
-    e.preventDefault();
-    console.log(formData);
-    try {
-      const response = await mailCheckMutate.mutateAsync({
-        email: `${formData.email}@${formData.emailSelect}`,
-      });
-      setAuthCode((prev) => response.data);
-      console.log(response);
-    } catch (err) {
-      console.log(err);
+  // 이메일 중복 확인 API 호출
+  const handleCheckEmail = async () => {
+    const email = `${formData.email}@${formData.emailSelect}`;
+
+    if (!formData.email || !formData.emailSelect) {
+      setEmailMessage('이메일을 입력해주세요.');
+      setEmailAvailable(false);
+      return;
     }
-  };
 
-  const onChangeEmailCheck = (e) => {
-    setEmailCheck(e.target.value);
-  };
-
-  const onCheckEmail = (e) => {
-    e.preventDefault();
-    if (emailCheck == authCode) {
-      basicAlert("인증되었습니다 :)");
-      setEmailVerified(true);
-    } else {
-      basicAlert("인증 실패");
-      setFormData({ ...formData, email: "", emailSelect: "" });
-      setEmailCheck("");
+    try {
+      const response = await checkEmailAvailability(email);
+      setEmailMessage(response.message);
+      setEmailAvailable(response.available);
+    } catch (error) {
+      setEmailMessage(error);
+      setEmailAvailable(false);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let hasError = false;
 
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
-    if (!passwordRegex.test(formData.password)) {
-      basicAlert("비밀번호는 영문과 숫자를 포함한 8자 이상이어야 합니다.");
-      return;
+    // 비밀번호 유효성 검사
+    if (!/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/.test(formData.password)) {
+      setPasswordError('영문, 숫자를 포함해야 합니다.');
+      hasError = true;
+    } else {
+      setPasswordError('');
     }
 
+    // 비밀번호 확인 검사
     if (formData.password !== formData.pwCheck) {
-      basicAlert("비밀번호가 일치하지 않습니다.");
-      return;
+      setPasswordError('비밀번호가 일치하지 않습니다.');
+      hasError = true;
     }
-    const nicknameRegex = /^[a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,15}$/;
-    if (!nicknameRegex.test(formData.nickname)) {
-      basicAlert("닉네임은 2자 이상 15자 이하여야 합니다.");
-      return;
+
+    // 닉네임 유효성 검사
+    if (!/^[a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,15}$/.test(formData.nickname)) {
+      setNicknameError('닉네임은 2~15자여야 합니다.');
+      hasError = true;
+    } else {
+      setNicknameError('');
     }
+
+    // 이메일 중복 확인 여부 체크
+    if (!emailAvailable) {
+      setEmailMessage('이메일 중복 확인을 완료해주세요.');
+      hasError = true;
+    }
+
+    // 오류가 있다면 회원가입 진행 X
+    if (hasError) return;
 
     try {
-      await registerMutate(formData);
-      basicAlert("회원가입이 완료되었습니다!");
-      navigate("/login");
+      const message = await registerUser(formData);
+      setEmailMessage(message);
+      navigate('/login');
     } catch (error) {
-      basicAlert("회원가입에 실패했습니다. 다시 시도해주세요.");
+      setEmailMessage(error || '회원가입에 실패했습니다. 다시 시도해주세요.');
     }
   };
 
   const onClickLogo = () => {
-    navigate("/");
+    navigate('/');
   };
 
   return (
-    <>
-      <RegisterBlock>
-        <img
-          className="RegisterImg"
-          src={logo}
-          alt="register"
-          onClick={onClickLogo}></img>
-        <div className="registerBox">
-          <Register
-            formData={formData}
-            onCheckEmail={onCheckEmail}
-            onChangeEmailCheck={onChangeEmailCheck}
-            handleMailCheck={handleMailCheck}
-            handleChange={handleChange}
-            handleEmailSelect={handleEmailSelect}
-            handleSubmit={handleSubmit}
-            passwordError={passwordError}
-            nicknameError={nicknameError}
-          />
-        </div>
-      </RegisterBlock>
-    </>
+    <RegisterBlock>
+      <img
+        className="RegisterImg"
+        src={logo}
+        alt="register"
+        onClick={onClickLogo}
+      />
+      <div className="registerBox">
+        <Register
+          formData={formData}
+          handleChange={handleChange}
+          handleEmailSelect={handleEmailSelect}
+          handleCheckEmail={handleCheckEmail}
+          handleSubmit={handleSubmit}
+          passwordError={passwordError}
+          pwCheckError={pwCheckError}
+          nicknameError={nicknameError}
+          emailMessage={emailMessage}
+          emailAvailable={emailAvailable}
+        />
+      </div>
+    </RegisterBlock>
   );
 };
 
