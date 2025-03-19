@@ -1,8 +1,43 @@
-import React from "react";
-import logo from "../../assets/loginLogo.jpg";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import logo from '../../assets/loginLogo.jpg';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Login = ({ formData, handleChange, handleSubmit }) => {
+const Login = () => {
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch('http://localhost:8080/member/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include', // 세션 쿠키를 포함하여 요청
+      body: JSON.stringify({
+        email: formData.email,
+        pwd: formData.password,
+      }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log('로그인 성공:', data);
+      navigate('/'); // 로그인 성공 후 홈 화면으로 이동
+    } else {
+      console.error('로그인 실패');
+      // 로그인 실패 후 처리 로직 추가
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="loginBox">
