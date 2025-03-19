@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import logo from '../../assets/loginLogo.jpg';
 import { Link, useNavigate } from 'react-router-dom';
+import { login } from '../../api/auth';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -16,25 +18,25 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:8080/member/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include', // 세션 쿠키를 포함하여 요청
-      body: JSON.stringify({
-        email: formData.email,
-        pwd: formData.password,
-      }),
-    });
-
-    if (response.ok) {
-      const data = await response.json();
+    if (!formData.email) {
+      setErrorMessage('이메일을 입력해주세요.');
+      return;
+    }
+    if (!formData.password) {
+      setErrorMessage('비밀번호를 입력해주세요.');
+      return;
+    }
+    try {
+      const data = await login(formData.email, formData.password);
       console.log('로그인 성공:', data);
       navigate('/'); // 로그인 성공 후 홈 화면으로 이동
-    } else {
-      console.error('로그인 실패');
-      // 로그인 실패 후 처리 로직 추가
+    } catch (error) {
+      console.error(error.message);
+      if (error.message === '로그인 실패') {
+        setErrorMessage('이메일 혹은 비밀번호를 확인해주세요.');
+      } else {
+        setErrorMessage('로그인 중 오류가 발생했습니다.');
+      }
     }
   };
 
@@ -64,20 +66,16 @@ const Login = () => {
             onChange={handleChange}
           />
         </div>
+        
         <button className="submitButton" type="submit">
           로그인
         </button>
+        {errorMessage && <p className="errorMessage">{errorMessage}</p>}
         <section className="loginSection">
-          <Link to="/help">
-            <span>비밀번호 재설정</span>
-          </Link>
           <Link to="/register">
-            <span>회원가입</span>
+            <span className="register">회원가입</span>
           </Link>
         </section>
-        <Link to="/help">
-          <span className="loginHelpSpan">로그인에 문제가 있으신가요?</span>
-        </Link>
       </div>
     </form>
   );
