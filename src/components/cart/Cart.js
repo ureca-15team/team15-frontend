@@ -184,6 +184,7 @@ const Cart = ({ item }) => {
         <button>{selectedCount}개 상품 구매하기</button>
       </TotalPriceContainer>
     </StyledCart>
+    // gg
   );
 };
 
