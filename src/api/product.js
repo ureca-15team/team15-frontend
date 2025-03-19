@@ -10,3 +10,35 @@ export const fetchProductDetails = async (prodcode) => {
     return null;
   }
 };
+
+// 개별 상품 주문 API (바로 구매)
+export const buyNow = async (prodcode, quantity) => {
+  try {
+    const response = await API.post(
+      '/order',
+      {
+        orderItems: [{ prodcode, quantity }],
+      },
+      { withCredentials: true },
+    );
+    return response.data;
+  } catch (error) {
+    console.error('상품 주문 실패:', error);
+    throw new Error('구매 중 오류 발생');
+  }
+};
+
+// 장바구니 추가 API
+export const addToCart = async (prodcode, quantity) => {
+  try {
+    const response = await API.post(
+      '/cart/add',
+      { prodcode, quantity },
+      { withCredentials: true },
+    );
+    return response.data;
+  } catch (error) {
+    console.error('장바구니 추가 실패:', error);
+    throw new Error('장바구니 추가 중 오류 발생');
+  }
+};

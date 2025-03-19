@@ -62,7 +62,6 @@ const Order = ({ orders, onCancelOrder }) => {
             </OrderDetails>
           ))}
 
-          {/* ✅ 구매 취소 버튼 추가 */}
           <OrderActions>
             <button
               className="cancel"
