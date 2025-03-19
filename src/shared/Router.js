@@ -11,13 +11,14 @@ import LoginPage from '../pages/auth/LoginPage';
 import RegisterPage from '../pages/auth/RegisterPage';
 import AuthLayout from '../containers/layout/AuthLayout';
 import ProductPage from '../pages/pages/ProductPage';
-import CartPage from "../pages/pages/CartPage";
+import OrderPage from '../pages/pages/OrderPage';
+import CartPage from '../pages/pages/CartPage';
 import ScrollToTop from '../components/common/ScrollToTop';
 
 const Router = () => {
   return (
     <BrowserRouter>
-    <ScrollToTop />
+      <ScrollToTop />
       <Routes>
         <Route
           path="/"
@@ -40,6 +41,14 @@ const Router = () => {
           element={
             <Template header footer>
               <CartPage />
+            </Template>
+          }
+        />
+        <Route
+          path="/order"
+          element={
+            <Template header footer>
+              <OrderPage />
             </Template>
           }
         />

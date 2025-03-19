@@ -59,6 +59,9 @@ const Header = () => {
   const onClickToRCart = () => {
     navigate('/cart');
   };
+  const onClickToOrder = () => {
+    navigate('/order');
+  };
 
   const handleLogout = async () => {
     try {
@@ -116,6 +119,7 @@ const Header = () => {
             size={'small'}
             color={'primary'}
             style={{ marginLeft: '10px' }}
+            onClick={onClickToOrder}
           >
             구매목록
           </Button>
