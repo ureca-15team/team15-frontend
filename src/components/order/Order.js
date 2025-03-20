@@ -11,7 +11,7 @@ import {
   OrderDate,
   PriceInfo,
 } from './Order.style';
-import sampleImage from '../../assets/product/diffuser.avif';
+
 
 const Order = ({ orders, onCancelOrder }) => {
   if (!orders || orders.length === 0) {
@@ -40,8 +40,7 @@ const Order = ({ orders, onCancelOrder }) => {
           {order.orderItems.map((item) => (
             <OrderDetails key={item.itemId}>
               <ProductImage
-                // src={item.product?.pimg ? item.product.pimg : sampleImage}
-                src={item.product?.pimg ? sampleImage : sampleImage}
+                src={require(`../../assets/product/${item.product?.pimg}`)}
                 alt={item.product?.prodname || '상품 이미지'}
               />
               <ProductInfo>

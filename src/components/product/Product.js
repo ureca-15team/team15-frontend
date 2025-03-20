@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { AiFillStar } from 'react-icons/ai';
 import imgTD from '../../assets/product/today-departure.png';
 import { buyNow, addToCart } from '../../api/product';
-import sampleImage from '../../assets/product/diffuser.avif';
 
 import {
   StyledProduct,
@@ -53,8 +52,8 @@ const Product = ({ item, prodcode }) => {
   return (
     <StyledProduct>
       <ImageWrapper>
-        <img src={imageUrl ? sampleImage : sampleImage} />
-        {/* <img src={imageUrl} alt={name} /> */}
+        <img src={require(`../../assets/product/${imageUrl}`)} />
+        
       </ImageWrapper>
 
       <OverviewContainer>

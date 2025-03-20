@@ -16,10 +16,10 @@ const ProductContainer = () => {
       if (data) {
         setProduct({
           prodcode: data.prodcode,
-          name: data.prodname, // API에서 받아온 prodname을 name으로 사용
+          name: data.prodname, 
           company: data.company,
-          price: data.price.toLocaleString(), // 가격을 숫자 포맷으로 변환
-          imageUrl: `http://localhost:8080/images/${data.pimg}`, // 이미지 경로 설정
+          price: data.price.toLocaleString(), 
+          imageUrl: data.pimg, // 이미지 경로 설정
           description: data.description,
         });
       }
