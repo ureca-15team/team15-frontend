@@ -106,7 +106,7 @@ const Register = ({
             type="text"
             name="nickname"
             className="nameInput"
-            placeholder="별명 (2~14자)"
+            placeholder="별명 (2~15자)"
             value={formData.nickname}
             onChange={handleChange}
           />

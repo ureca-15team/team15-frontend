@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import theme from '../../lib/styles/theme';
 
 export const StyledProduct = styled.div`
   width: 100%;
@@ -168,15 +167,23 @@ export const ProductInfoBox = styled.div`
 `;
 
 export const QuantityContainer = styled.div`
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0 !important;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  width: fit-content;
 
   & input {
     width: 30px;
     height: 25px;
     text-align: center;
     font-size: 16px;
+    border: none;
     -moz-appearance: textfield;
+    padding: 0;
+    margin: 0;
   }
   & input::-webkit-outer-spin-button,
   & input::-webkit-inner-spin-button {
@@ -189,8 +196,20 @@ export const QuantityContainer = styled.div`
     height: 25px;
     font-size: 16px;
     background-color: white;
-    border: 1px solid #fafafa;
+    border: none;
     cursor: pointer;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* 좌측 버튼 ( - ) */
+  & button:first-of-type {
+    border-right: 1px solid #e0e0e0;
+  }
+
+  /* 우측 버튼 ( + ) */
+  & button:last-of-type {
+    border-left: 1px solid #e0e0e0;
   }
 `;
 
