@@ -23,7 +23,7 @@ const Product = ({ item, prodcode }) => {
   const [quantity, setQuantity] = useState(1);
 
   const handleQuantityChange = (e) => {
-    const value = Math.max(1, parseInt(e.target.value, 10));
+    const value = Math.max(1, Math.min(parseInt(e.target.value, 10), 10));
     setQuantity(value);
   };
 
@@ -113,7 +113,9 @@ const Product = ({ item, prodcode }) => {
                   min="1"
                   max="10"
                 />
-                <button onClick={() => setQuantity(quantity + 1)}>+</button>
+                <button onClick={() => setQuantity(Math.min(quantity + 1, 10))}>
+                  +
+                </button>
               </QuantityContainer>
             </div>
             <p>{numericPrice.toLocaleString()} 원</p>
