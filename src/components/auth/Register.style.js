@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import theme from "../../lib/styles/theme";
+import styled from 'styled-components';
+import theme from '../../lib/styles/theme';
 
 export const RegisterBlock = styled.section`
   display: flex;
@@ -9,12 +9,11 @@ export const RegisterBlock = styled.section`
   width: 100vw;
   position: relative;
 
-
   /* padding-top: 40px;
   width: calc(100% - 18px);
   margin: auto; */
 
-  img{
+  img {
     position: absolute;
     top: 20px;
     left: 20px;
@@ -24,7 +23,6 @@ export const RegisterBlock = styled.section`
     cursor: pointer;
   }
 
-
   .registerBox {
     padding-top: 100px;
     width: 360px;
@@ -32,7 +30,7 @@ export const RegisterBlock = styled.section`
 
     > div {
       margin: 30px auto 30px 0;
-      padding-bottom:20px ;
+      padding-bottom: 20px;
       width: 360px;
       border-bottom: 1px solid ${(props) => props.theme.lightGrayColor};
       > h1 {
@@ -91,7 +89,10 @@ export const RegisterBlock = styled.section`
 
   .emailInput {
     font-size: 15px;
-    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s,
+      background-color 0.2s;
     display: block;
     height: 40px;
     width: 100%;
@@ -121,7 +122,10 @@ export const RegisterBlock = styled.section`
 
   .emailSelect {
     font-size: 15px;
-    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s,
+      background-color 0.2s;
     display: block;
     box-sizing: border-box;
     height: 40px;
@@ -154,14 +158,20 @@ export const RegisterBlock = styled.section`
     min-height: 50px;
     font-weight: 700;
     text-align: center;
-    transition: color 0.1s, background-color 0.1s, border-color 0.1s;
+    transition:
+      color 0.1s,
+      background-color 0.1s,
+      border-color 0.1s;
     border-radius: 4px;
     cursor: pointer;
   }
 
   .pwInput {
     font-size: 15px;
-    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s,
+      background-color 0.2s;
     display: block;
     height: 40px;
     width: 100%;
@@ -183,7 +193,10 @@ export const RegisterBlock = styled.section`
 
   .emailCheck {
     font-size: 15px;
-    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s,
+      background-color 0.2s;
     display: block;
     height: 40px;
     width: 100%;
@@ -206,7 +219,10 @@ export const RegisterBlock = styled.section`
 
   .nameInput {
     font-size: 15px;
-    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s,
+      background-color 0.2s;
     display: block;
     height: 40px;
     width: 100%;
@@ -227,9 +243,8 @@ export const RegisterBlock = styled.section`
   }
 
   .emailCheckButton {
-    margin-top: 10px;
-    width: 100%;
-    height: 20px;
+    width: 150px;
+    height: 10px;
     background-color: ${(props) => props.theme.primaryColor};
     border-color: ${(props) => props.theme.primaryColor};
     color: ${(props) => props.theme.whiteColor};
@@ -238,7 +253,10 @@ export const RegisterBlock = styled.section`
     font-weight: 700;
     text-decoration: none;
     text-align: center;
-    transition: color 0.1s, background-color 0.1s, border-color 0.1s;
+    transition:
+      color 0.1s,
+      background-color 0.1s,
+      border-color 0.1s;
     border-radius: 4px;
     cursor: pointer;
     &:hover {
@@ -259,7 +277,10 @@ export const RegisterBlock = styled.section`
     font-weight: 700;
     text-decoration: none;
     text-align: center;
-    transition: color 0.1s, background-color 0.1s, border-color 0.1s;
+    transition:
+      color 0.1s,
+      background-color 0.1s,
+      border-color 0.1s;
     border-radius: 4px;
     cursor: pointer;
     &:hover {
@@ -283,5 +304,52 @@ export const RegisterBlock = styled.section`
   .error {
     font-size: 12px;
     color: red;
+  }
+
+  .errorMessage {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.3px;
+    color: red;
+  }
+
+  .errorMessage.success {
+    color: green;
+  }
+
+  .emailCheckButton {
+    width: 100%;
+    height: 45px;
+    margin-top: 10px;
+    border: 2px solid #00aaff;
+    background-color: transparent;
+    color: #00aaff;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease-in-out,
+      color 0.2s ease-in-out;
+  }
+
+  .emailCheckButton:hover {
+    background-color: #00aaff;
+    color: white;
+  }
+
+  .emailMessage {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.3px;
+    color: red;
+  }
+
+  .emailMessage.success {
+    color: green;
   }
 `;
