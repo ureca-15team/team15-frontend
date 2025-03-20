@@ -47,7 +47,10 @@ const Cart = ({ items, setItems }) => {
       return sum + (selectedItem ? selectedItem.price * product.quantity : 0);
     }, 0);
     setTotalPrice(total);
-    setSelectedCount(selectedProducts.length);
+
+    // 제품의 수량을 기준으로 selectedCount 계산
+    const count = selectedProducts.reduce((sum, product) => sum + product.quantity, 0);
+    setSelectedCount(count);
 
     // 모두 선택 상태 업데이트
     if (selectedItems.every((item) => item.selected)) {
