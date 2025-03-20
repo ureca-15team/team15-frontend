@@ -56,7 +56,7 @@ const Login = () => {
         navigate('/'); // 로그인 성공 후 홈 화면으로 이동
       } else {
         if (response.status === 429) {
-          setErrorMessage('로그인 시도가 너무 많습니다.<br />5분 후 다시 시도해주세요.');
+          setErrorMessage('로그인 시도가 너무 많습니다.<br />1분 후 다시 시도해주세요.');
           setDisabled(true);
         } else {
           const errorData = await response.json();
