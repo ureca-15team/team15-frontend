@@ -1,5 +1,7 @@
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 export const login = async (email, password) => {
-  const response = await fetch('http://localhost:8080/member/login', {
+  const response = await fetch(`${API_BASE_URL}/member/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -15,7 +17,7 @@ export const login = async (email, password) => {
 };
 
 export const checkLoginStatus = async () => {
-  const response = await fetch('http://localhost:8080/member/status', {
+  const response = await fetch(`${API_BASE_URL}/member/status`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -31,7 +33,7 @@ export const checkLoginStatus = async () => {
 };
 
 export const logout = async () => {
-  const response = await fetch('http://localhost:8080/member/logout', {
+  const response = await fetch(`${API_BASE_URL}/member/logout`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

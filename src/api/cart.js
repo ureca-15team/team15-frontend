@@ -1,5 +1,8 @@
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+
 export const fetchCartItems = async () => {
-  const cartResponse = await fetch('http://localhost:8080/cart', {
+  const cartResponse = await fetch(`${API_BASE_URL}/cart`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -10,7 +13,7 @@ export const fetchCartItems = async () => {
   if (cartResponse.ok) {
     const cartData = await cartResponse.json();
     const productDetailsPromises = cartData.map(async (cartItem) => {
-      const productResponse = await fetch(`http://localhost:8080/products/${cartItem.prodcode}`, {
+      const productResponse = await fetch(`${API_BASE_URL}/products/${cartItem.prodcode}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -40,7 +43,7 @@ export const fetchCartItems = async () => {
 
 export const deleteCartItem = async (cartId) => {
   console.log(`Deleting cart item with ID: ${cartId}`);
-  const response = await fetch(`http://localhost:8080/cart/${cartId}`, {
+  const response = await fetch(`${API_BASE_URL}/cart/${cartId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -58,7 +61,7 @@ export const deleteCartItem = async (cartId) => {
 };
 
 export const checkoutCartItems = async (items) => {
-  const response = await fetch('http://localhost:8080/cart/checkout', {
+  const response = await fetch(`${API_BASE_URL}/cart/checkout`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
