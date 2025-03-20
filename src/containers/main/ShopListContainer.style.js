@@ -6,6 +6,8 @@ const ShopListContainerBlock = styled.div`
 
   max-width: 1200px;
   margin-top: 70px;
+  width: 100%; /* 화면을 꽉 채우도록 수정 */
+
   ${(props) =>
     props.searchItems &&
     css`
@@ -16,25 +18,21 @@ const ShopListContainerBlock = styled.div`
     width: 100%;
     font-size: 1.4rem;
     font-weight: bold;
+    text-align: left; /* 왼쪽 정렬 */
   }
 
   li {
     margin-top: 1rem;
-    width: 23%;
-    min-width: 170px;
+    min-width: 200px;
     max-height: 440px;
     cursor: pointer;
   }
   .postsContainer {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
     margin-top: 1rem;
     width: 100%;
-    height: auto;
-    flex-wrap: wrap;
-    gap: 10px;
   }
   .pages {
     ${theme.flexCenter}

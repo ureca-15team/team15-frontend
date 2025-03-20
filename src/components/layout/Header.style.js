@@ -13,6 +13,12 @@ const HeaderBlock = styled.div`
   z-index: 100;
   border-bottom: 2px solid ${theme.lightGrayColor};
 
+  .nickname {
+    font-size: 14px;
+    padding-top: 2px;
+    margin-right: 5px;
+  }
+
   .container {
     width: 100%;
     max-width: 1200px;

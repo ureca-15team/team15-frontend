@@ -5,6 +5,7 @@ export const StyledCart = styled.div`
   max-width: 1200px;
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
 `;
 
 export const CartContainer = styled.div`
@@ -13,6 +14,13 @@ export const CartContainer = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
+
+  .emptyCart {
+    font-size: 14px;
+    color: #868e96;
+    text-align: center;
+    padding: 50px 0;
+    }
 `;
 
 export const SelectContainer = styled.div`

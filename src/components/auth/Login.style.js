@@ -8,8 +8,11 @@ export const LoginBlock = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #fafafa;
+  padding-bottom: 100px;
 
-
+  .errorMessage{
+    text-align: center;
+  }
   .loginBox {
     margin: 0px auto;
     max-width: 300px;
@@ -24,6 +27,7 @@ export const LoginBlock = styled.div`
 
   .inputDiv {
     position: relative;
+    margin-bottom: 2px;
   }
 
   .loginEmailInput {
@@ -81,6 +85,7 @@ export const LoginBlock = styled.div`
   }
 
   .loginSection {
+    margin-top: 20px;
     margin-bottom: 24px;
     gap: 20px;
     ${theme.flexCenter}
@@ -94,7 +99,7 @@ export const LoginBlock = styled.div`
   }
 
   .submitButton {
-    margin: 20px 0;
+    margin: 20px 0 0 0;
     width: 100%;
     height: 45px;
     padding: 0px;
@@ -112,6 +117,10 @@ export const LoginBlock = styled.div`
     &:hover {
       background-color: ${(props) => props.theme.darkprimaryColor};
     }
+    &:disabled {
+      background-color: ${(props) => props.theme.lightGrayColor};
+      cursor: not-allowed;
+    }
   }
 
   .loginHelpSpan {
@@ -119,4 +128,12 @@ export const LoginBlock = styled.div`
     font-size: 14px;
     line-height: 18px;
   }
+
+  .errorMessage {
+    margin: 10px 0 0 0; 
+    font-size: 14px;
+    color: red;
+  }
+
+
 `;
