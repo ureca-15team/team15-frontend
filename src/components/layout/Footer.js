@@ -7,7 +7,6 @@ const Footer = () => {
   const navigate = useNavigate();
   return (
     <FooterBlock>
-      <div className="emailHelp">{'고객센터 >'}</div>
       <div className="desc">
         <p>FE : 김현우, 박지원 </p>
         <p>BE : 김현우, 박지원</p>

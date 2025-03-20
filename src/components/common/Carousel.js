@@ -57,7 +57,6 @@ const CarouselContainer = styled.div`
 const StyledSlider = styled(Slider)`
   width: 100%;
   height: 100%;
-  border: 2px solid red;
 
   .slick-list {
     overflow: hidden;
@@ -78,14 +77,13 @@ const StyledSlider = styled(Slider)`
   img {
     width: 100%;
     height: 104%;
-    min-height: 100%; 
+    min-height: 100%;
     object-fit: cover;
     transition: all 0.1s linear;
-    cursor: pointer;
   }
   img:hover {
-      transform: scale(1.04);
-    }
+    transform: scale(1.04);
+  }
 `;
 
 const Arrow = styled.div`

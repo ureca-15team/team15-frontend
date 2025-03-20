@@ -124,6 +124,7 @@ const RegisterContainer = () => {
     try {
       const message = await registerUser(formData);
       setEmailMessage(message);
+      alert('회원가입이 완료되었습니다. 로그인해주세요.');
       navigate('/login');
     } catch (error) {
       setEmailMessage(error || '회원가입에 실패했습니다. 다시 시도해주세요.');

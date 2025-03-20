@@ -5,7 +5,7 @@ export const OrderContainerBlock = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 120px 20px 20px;
+  padding: 100px 0;
   background-color: rgb(255, 255, 255);
   min-height: 100vh;
 `;

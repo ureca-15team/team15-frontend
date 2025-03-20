@@ -14,6 +14,7 @@ const MainBannerBlock = styled.div`
     overflow: hidden;
     border-radius: 4px;
     min-width: 180px;
+    
 
     img {
       /* min-width: 180px; */
