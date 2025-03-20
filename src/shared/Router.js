@@ -14,6 +14,7 @@ import ProductPage from '../pages/pages/ProductPage';
 import OrderPage from '../pages/pages/OrderPage';
 import CartPage from '../pages/pages/CartPage';
 import ScrollToTop from '../components/common/ScrollToTop';
+import ProtectedRoute from './ProtectedRoute';
 
 const Router = () => {
   return (
@@ -39,17 +40,21 @@ const Router = () => {
         <Route
           path="/cart"
           element={
-            <Template header footer>
-              <CartPage />
-            </Template>
+            <ProtectedRoute>
+              <Template header footer>
+                <CartPage />
+              </Template>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/order"
           element={
-            <Template header footer>
-              <OrderPage />
-            </Template>
+            <ProtectedRoute>
+              <Template header footer>
+                <OrderPage />
+              </Template>
+            </ProtectedRoute>
           }
         />
         <Route element={<AuthLayout />}>

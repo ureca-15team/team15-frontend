@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import Register from '../../components/auth/Register';
 import { RegisterBlock } from '../../components/auth/Register.style';
 import logo from '../../assets/logo.jpg';
-import { basicAlert } from '../../shared/alert/SwalAlert';
 import { registerUser, checkEmailAvailability } from '../../api/register';
 
 const RegisterContainer = () => {
@@ -20,6 +19,7 @@ const RegisterContainer = () => {
   const [nicknameError, setNicknameError] = useState('');
   const [emailMessage, setEmailMessage] = useState('');
   const [emailAvailable, setEmailAvailable] = useState(null);
+  const [isEmailChecked, setIsEmailChecked] = useState(false);
 
   const navigate = useNavigate();
 
@@ -30,13 +30,19 @@ const RegisterContainer = () => {
       [name]: value,
     }));
 
+    // 이메일이 변경되면 중복 확인 상태 초기화
+    if (name === 'email' || name === 'emailSelect') {
+      setEmailAvailable(null);
+      setIsEmailChecked(false);
+      setEmailMessage('이메일 중복 확인을 완료해주세요.'); // ✅ 이메일 변경 시 메시지 설정
+    }
+
     if (name === 'password') {
       const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
       setPasswordError(
         passwordRegex.test(value) ? '' : '영문, 숫자를 포함해야 합니다.',
       );
 
-      // ✅ 비밀번호가 변경될 때, 비밀번호 확인이 비어있으면 오류 메시지 초기화
       if (formData.pwCheck) {
         setPwCheckError(
           value === formData.pwCheck ? '' : '비밀번호가 일치하지 않습니다.',
@@ -44,7 +50,6 @@ const RegisterContainer = () => {
       }
     }
 
-    // ✅ 비밀번호 확인 검사 (비밀번호 확인 입력 시에만)
     if (name === 'pwCheck') {
       setPwCheckError(
         value === formData.password ? '' : '비밀번호가 일치하지 않습니다.',
@@ -64,9 +69,12 @@ const RegisterContainer = () => {
       ...prevFormData,
       emailSelect: e.target.value,
     }));
+
+    setEmailAvailable(null);
+    setIsEmailChecked(false);
+    setEmailMessage('이메일 중복 확인을 완료해주세요.'); // ✅ 이메일 변경 시 메시지 설정
   };
 
-  // 이메일 중복 확인 API 호출
   const handleCheckEmail = async () => {
     const email = `${formData.email}@${formData.emailSelect}`;
 
@@ -80,9 +88,11 @@ const RegisterContainer = () => {
       const response = await checkEmailAvailability(email);
       setEmailMessage(response.message);
       setEmailAvailable(response.available);
+      setIsEmailChecked(true);
     } catch (error) {
-      setEmailMessage(error);
+      setEmailMessage('이메일 확인 중 오류가 발생했습니다.');
       setEmailAvailable(false);
+      setIsEmailChecked(false);
     }
   };
 
@@ -90,7 +100,12 @@ const RegisterContainer = () => {
     e.preventDefault();
     let hasError = false;
 
-    // 비밀번호 유효성 검사
+    // 이메일 중복 확인 여부 체크
+    if (!isEmailChecked || !emailAvailable) {
+      setEmailMessage('이메일 중복 확인을 완료해주세요.'); // ✅ 회원가입 버튼 클릭 시 메시지 설정
+      hasError = true;
+    }
+
     if (!/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/.test(formData.password)) {
       setPasswordError('영문, 숫자를 포함해야 합니다.');
       hasError = true;
@@ -98,13 +113,11 @@ const RegisterContainer = () => {
       setPasswordError('');
     }
 
-    // 비밀번호 확인 검사
     if (formData.password !== formData.pwCheck) {
-      setPasswordError('비밀번호가 일치하지 않습니다.');
+      setPwCheckError('비밀번호가 일치하지 않습니다.');
       hasError = true;
     }
 
-    // 닉네임 유효성 검사
     if (!/^[a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,15}$/.test(formData.nickname)) {
       setNicknameError('닉네임은 2~15자여야 합니다.');
       hasError = true;
@@ -112,13 +125,6 @@ const RegisterContainer = () => {
       setNicknameError('');
     }
 
-    // 이메일 중복 확인 여부 체크
-    if (!emailAvailable) {
-      setEmailMessage('이메일 중복 확인을 완료해주세요.');
-      hasError = true;
-    }
-
-    // 오류가 있다면 회원가입 진행 X
     if (hasError) return;
 
     try {
@@ -131,17 +137,13 @@ const RegisterContainer = () => {
     }
   };
 
-  const onClickLogo = () => {
-    navigate('/');
-  };
-
   return (
     <RegisterBlock>
       <img
         className="RegisterImg"
         src={logo}
         alt="register"
-        onClick={onClickLogo}
+        onClick={() => navigate('/')}
       />
       <div className="registerBox">
         <Register
@@ -155,6 +157,7 @@ const RegisterContainer = () => {
           nicknameError={nicknameError}
           emailMessage={emailMessage}
           emailAvailable={emailAvailable}
+          isEmailChecked={isEmailChecked}
         />
       </div>
     </RegisterBlock>
