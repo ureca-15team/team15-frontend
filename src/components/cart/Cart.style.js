@@ -6,6 +6,7 @@ export const StyledCart = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  min-height: 100vh;
 `;
 
 export const CartContainer = styled.div`

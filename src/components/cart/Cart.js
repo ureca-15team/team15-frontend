@@ -47,7 +47,10 @@ const Cart = ({ items, setItems }) => {
       return sum + (selectedItem ? selectedItem.price * product.quantity : 0);
     }, 0);
     setTotalPrice(total);
-    setSelectedCount(selectedProducts.length);
+
+    // 제품의 수량을 기준으로 selectedCount 계산
+    const count = selectedProducts.reduce((sum, product) => sum + product.quantity, 0);
+    setSelectedCount(count);
 
     // 모두 선택 상태 업데이트
     if (selectedItems.every((item) => item.selected)) {
@@ -72,16 +75,6 @@ const Cart = ({ items, setItems }) => {
       prevSelectedItems.map((product) =>
         product.prodcode === prodcode
           ? { ...product, selected: !product.selected }
-          : product,
-      ),
-    );
-  };
-
-  const handleQuantityChange = (prodcode, newQuantity) => {
-    setSelectedItems((prevSelectedItems) =>
-      prevSelectedItems.map((product) =>
-        product.prodcode === prodcode
-          ? { ...product, quantity: newQuantity }
           : product,
       ),
     );
@@ -180,6 +173,17 @@ const Cart = ({ items, setItems }) => {
     }
   };
 
+  const handleQuantityChange = (prodcode, newQuantity) => {
+    const clampedQuantity = Math.max(1, Math.min(newQuantity, 10));
+    setSelectedItems((prevSelectedItems) =>
+      prevSelectedItems.map((product) =>
+        product.prodcode === prodcode
+          ? { ...product, quantity: clampedQuantity }
+          : product,
+      ),
+    );
+  };
+
   return (
     <StyledCart>
       <CartContainer>
@@ -198,9 +202,7 @@ const Cart = ({ items, setItems }) => {
           <span onClick={handleDeleteSelectedProducts}>선택삭제</span>
         </SelectContainer>
         {items.length === 0 && (
-          <p className='emptyCart'>
-            장바구니가 비어있습니다.
-          </p>
+          <p className="emptyCart">장바구니가 비어있습니다.</p>
         )}
         {items.map((product) => {
           const selectedItem = selectedItems.find(
@@ -260,7 +262,7 @@ const Cart = ({ items, setItems }) => {
                     onChange={(e) =>
                       handleQuantityChange(
                         product.prodcode,
-                        Math.max(1, parseInt(e.target.value, 10)),
+                        Math.max(1, Math.min(parseInt(e.target.value, 10), 10)),
                       )
                     }
                     min="1"
@@ -268,7 +270,10 @@ const Cart = ({ items, setItems }) => {
                   />
                   <button
                     onClick={() =>
-                      handleQuantityChange(product.prodcode, quantity + 1)
+                      handleQuantityChange(
+                        product.prodcode,
+                        Math.min(quantity + 1, 10),
+                      )
                     }
                   >
                     +

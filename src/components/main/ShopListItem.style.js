@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import theme from "../../lib/styles/theme";
+import styled from 'styled-components';
+import theme from '../../lib/styles/theme';
 
 const ShopListItemBlock = styled.div`
   ${theme.flexCenterColumn}
@@ -12,6 +12,8 @@ const ShopListItemBlock = styled.div`
     padding-bottom: 100%;
     overflow: hidden;
     border-radius: 7px;
+    transition: all 0.1s linear;
+    border-radius: 6px;
     img {
       position: absolute;
       top: 50%;
@@ -20,8 +22,13 @@ const ShopListItemBlock = styled.div`
       height: 120%;
       object-fit: cover;
       transform: translate(-50%, -50%);
+
     }
   }
+  .itemImg:hover {
+      transform: scale(1.04);
+      border-radius: 6px;
+    }
   .contents {
     width: 100%;
     min-height: 150px;

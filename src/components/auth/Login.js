@@ -11,20 +11,52 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (disabled === true) {
-      setTimeout(() => {
-        setDisabled(false);
-        setLoginAttempts(0);
-      }, 60000);
-    }
-  }, [disabled]);
-
-  useEffect(() => {
     const storedAttempts = localStorage.getItem('loginAttempts');
+    const storedDisabled = localStorage.getItem('loginDisabled');
+    const storedDisabledUntil = localStorage.getItem('loginDisabledUntil');
+
     if (storedAttempts) {
       setLoginAttempts(parseInt(storedAttempts, 10));
     }
+
+    if (storedDisabled === 'true' && storedDisabledUntil) {
+      const disabledUntil = new Date(storedDisabledUntil);
+      const now = new Date();
+      if (now < disabledUntil) {
+        setDisabled(true);
+        setErrorMessage('로그인 시도가 너무 많습니다.<br />1분 후 다시 시도해주세요.');
+        const remainingTime = disabledUntil - now;
+        setTimeout(() => {
+          setDisabled(false);
+          setLoginAttempts(0);
+          localStorage.setItem('loginDisabled', 'false');
+          localStorage.setItem('loginAttempts', '0');
+          localStorage.removeItem('loginDisabledUntil');
+          setErrorMessage(''); // 경고 메시지 초기화
+        }, remainingTime);
+      } else {
+        localStorage.setItem('loginDisabled', 'false');
+        localStorage.setItem('loginAttempts', '0');
+        localStorage.removeItem('loginDisabledUntil');
+      }
+    }
   }, []);
+
+  useEffect(() => {
+    if (disabled === true) {
+      const disabledUntil = new Date(new Date().getTime() + 60000);
+      localStorage.setItem('loginDisabled', 'true');
+      localStorage.setItem('loginDisabledUntil', disabledUntil.toISOString());
+      setTimeout(() => {
+        setDisabled(false);
+        setLoginAttempts(0);
+        localStorage.setItem('loginDisabled', 'false');
+        localStorage.setItem('loginAttempts', '0');
+        localStorage.removeItem('loginDisabledUntil');
+        setErrorMessage(''); // 경고 메시지 초기화
+      }, 60000);
+    }
+  }, [disabled]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,7 +84,7 @@ const Login = () => {
         const data = await response.json();
         console.log('로그인 성공:', data);
         setLoginAttempts(0); // 로그인 성공 시 시도 횟수 초기화
-        localStorage.setItem('loginAttempts', 0);
+        localStorage.setItem('loginAttempts', '0');
         navigate('/'); // 로그인 성공 후 홈 화면으로 이동
       } else {
         if (response.status === 429) {
@@ -65,10 +97,10 @@ const Login = () => {
         setLoginAttempts((prevAttempts) => {
           const newAttempts = prevAttempts + 1;
           if (newAttempts > 5) {
-            localStorage.setItem('loginAttempts', 0);
+            localStorage.setItem('loginAttempts', '0');
             return 0;
           } else {
-            localStorage.setItem('loginAttempts', newAttempts);
+            localStorage.setItem('loginAttempts', newAttempts.toString());
             return newAttempts;
           }
         });
