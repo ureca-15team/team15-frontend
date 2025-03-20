@@ -19,11 +19,9 @@ const CartContainer = () => {
     fetchItems();
   }, []);
 
-  console.log(items);
-
   return (
     <StyledCartContainer>
-      <Cart items={items} />
+      <Cart items={items} setItems={setItems} />
     </StyledCartContainer>
   );
 };

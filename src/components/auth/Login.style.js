@@ -8,6 +8,7 @@ export const LoginBlock = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #fafafa;
+  padding-bottom: 100px;
 
 
   .loginBox {

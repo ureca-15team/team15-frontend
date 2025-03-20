@@ -21,6 +21,7 @@ export const fetchCartItems = async () => {
         const productData = await productResponse.json();
         return {
           ...productData,
+          cartId: cartItem.cartId, // cartId 추가
           quantity: cartItem.quantity,
         };
       } else {
@@ -35,4 +36,42 @@ export const fetchCartItems = async () => {
     console.error('장바구니 정보를 불러오는데 실패했습니다.');
     return [];
   }
+};
+
+export const deleteCartItem = async (cartId) => {
+  console.log(`Deleting cart item with ID: ${cartId}`);
+  const response = await fetch(`http://localhost:8080/cart/${cartId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include', // 세션 쿠키를 포함하여 요청
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error('Failed to delete cart item:', errorText);
+    throw new Error('Failed to delete cart item');
+  }
+
+  console.log('Cart item deleted successfully');
+};
+
+export const checkoutCartItems = async (prodcodes) => {
+  const response = await fetch('http://localhost:8080/cart/checkout', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify(prodcodes),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error('Failed to checkout:', errorText);
+    throw new Error('Failed to checkout');
+  }
+
+  console.log('Checkout successful');
 };

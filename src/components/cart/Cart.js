@@ -14,21 +14,27 @@ import {
   PriceInfoContainer,
   TotalInfoContainer,
 } from './Cart.style';
-// import diffuserImage from '../../assets/product/diffuser.avif'; 
+import {
+  fetchCartItems,
+  deleteCartItem,
+  checkoutCartItems,
+} from '../../api/cart';
 
-
-const Cart = ({ items }) => {
+const Cart = ({ items, setItems }) => {
   const [selectAll, setSelectAll] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {
-    setSelectedItems(
-      items.map((product) => ({
-        prodcode: product.prodcode,
-        selected: true,
-        quantity: product.quantity,
-      }))
-    );
+    if (items.length > 0) {
+      setSelectedItems(
+        items.map((product) => ({
+          cartId: product.cartId,
+          prodcode: product.prodcode,
+          selected: true,
+          quantity: product.quantity,
+        })),
+      );
+    }
   }, [items]);
 
   const [totalPrice, setTotalPrice] = useState(0);
@@ -38,7 +44,7 @@ const Cart = ({ items }) => {
     const selectedProducts = selectedItems.filter((item) => item.selected);
     const total = selectedProducts.reduce((sum, product) => {
       const selectedItem = items.find((i) => i.prodcode === product.prodcode);
-      return sum + selectedItem.price * product.quantity;
+      return sum + (selectedItem ? selectedItem.price * product.quantity : 0);
     }, 0);
     setTotalPrice(total);
     setSelectedCount(selectedProducts.length);
@@ -57,7 +63,7 @@ const Cart = ({ items }) => {
       prevSelectedItems.map((product) => ({
         ...product,
         selected: !selectAll,
-      }))
+      })),
     );
   };
 
@@ -66,8 +72,8 @@ const Cart = ({ items }) => {
       prevSelectedItems.map((product) =>
         product.prodcode === prodcode
           ? { ...product, selected: !product.selected }
-          : product
-      )
+          : product,
+      ),
     );
   };
 
@@ -76,12 +82,100 @@ const Cart = ({ items }) => {
       prevSelectedItems.map((product) =>
         product.prodcode === prodcode
           ? { ...product, quantity: newQuantity }
-          : product
-      )
+          : product,
+      ),
     );
   };
 
+  const handleDeleteProduct = async (cartId, prodname) => {
+    const confirmDelete = window.confirm(
+      `${prodname}을 장바구니에서 삭제하시겠습니까?`,
+    );
+    if (!confirmDelete) {
+      return;
+    }
 
+    try {
+      await deleteCartItem(cartId);
+      console.log(`Deleted product with cartId: ${cartId}`);
+      setItems((prevItems) =>
+        prevItems.filter((product) => product.cartId !== cartId),
+      );
+      setSelectedItems((prevSelectedItems) =>
+        prevSelectedItems.filter((product) => product.cartId !== cartId),
+      );
+    } catch (error) {
+      console.error('Failed to delete cart item:', error);
+    }
+  };
+
+  const handleDeleteSelectedProducts = async () => {
+    const confirmDelete = window.confirm(
+      '선택된 모든 제품을 장바구니에서 삭제하시겠습니까?',
+    );
+    if (!confirmDelete) {
+      return;
+    }
+
+    try {
+      const selectedProducts = selectedItems.filter((item) => item.selected);
+      for (const product of selectedProducts) {
+        await deleteCartItem(product.cartId);
+      }
+      setItems((prevItems) =>
+        prevItems.filter(
+          (product) =>
+            !selectedProducts.some(
+              (selected) => selected.cartId === product.cartId,
+            ),
+        ),
+      );
+      setSelectedItems((prevSelectedItems) =>
+        prevSelectedItems.filter(
+          (product) =>
+            !selectedProducts.some(
+              (selected) => selected.cartId === product.cartId,
+            ),
+        ),
+      );
+    } catch (error) {
+      console.error('Failed to delete selected cart items:', error);
+    }
+  };
+
+  const handleCheckout = async () => {
+    const selectedProducts = selectedItems.filter((item) => item.selected);
+    const prodcodes = selectedProducts.map((product) => product.prodcode);
+    const confirmCheckout = window.confirm(
+      `${selectedCount}개 상품을 구매하시겠습니까?`,
+    );
+    if (!confirmCheckout) {
+      return;
+    }
+    console.log('구매할 상품 코드:', prodcodes);
+    try {
+      await checkoutCartItems(prodcodes);
+      alert('선택한 상품이 구매 목록에 추가되었습니다.');
+      setItems((prevItems) =>
+        prevItems.filter(
+          (product) =>
+            !selectedProducts.some(
+              (selected) => selected.prodcode === product.prodcode,
+            ),
+        ),
+      );
+      setSelectedItems((prevSelectedItems) =>
+        prevSelectedItems.filter(
+          (product) =>
+            !selectedProducts.some(
+              (selected) => selected.prodcode === product.prodcode,
+            ),
+        ),
+      );
+    } catch (error) {
+      alert('구매에 실패했습니다.');
+    }
+  };
 
   return (
     <StyledCart>
@@ -98,11 +192,16 @@ const Cart = ({ items }) => {
               <span>모두 선택</span>
             </label>
           </div>
-          <span>선택삭제</span>
+          <span onClick={handleDeleteSelectedProducts}>선택삭제</span>
         </SelectContainer>
+        {items.length === 0 && (
+          <p className='emptyCart'>
+            장바구니가 비어있습니다.
+          </p>
+        )}
         {items.map((product) => {
           const selectedItem = selectedItems.find(
-            (selectedItem) => selectedItem.prodcode === product.prodcode
+            (selectedItem) => selectedItem.prodcode === product.prodcode,
           );
           const isSelected = selectedItem ? selectedItem.selected : false;
           const quantity = selectedItem ? selectedItem.quantity : 1;
@@ -120,10 +219,19 @@ const Cart = ({ items }) => {
                   />
                   <label htmlFor={`product-check-${product.prodcode}`}></label>
                 </div>
-                <span>✕</span>
+                <span
+                  onClick={() =>
+                    handleDeleteProduct(product.cartId, product.prodname)
+                  }
+                >
+                  ✕
+                </span>
               </ProductSelectContainer>
               <ProductInfoContainer>
-              <img src={require(`../../assets/product/${product.pimg}`)} alt="" />
+                <img
+                  src={require(`../../assets/product/${product.pimg}`)}
+                  alt=""
+                />
                 <div>
                   <p>
                     [{product.company}]{product.prodname}
@@ -135,7 +243,10 @@ const Cart = ({ items }) => {
                 <QuantityContainer>
                   <button
                     onClick={() =>
-                      handleQuantityChange(product.prodcode, Math.max(1, quantity - 1))
+                      handleQuantityChange(
+                        product.prodcode,
+                        Math.max(1, quantity - 1),
+                      )
                     }
                   >
                     −
@@ -144,13 +255,18 @@ const Cart = ({ items }) => {
                     type="number"
                     value={quantity}
                     onChange={(e) =>
-                      handleQuantityChange(product.prodcode, Math.max(1, parseInt(e.target.value, 10)))
+                      handleQuantityChange(
+                        product.prodcode,
+                        Math.max(1, parseInt(e.target.value, 10)),
+                      )
                     }
                     min="1"
                     max="10"
                   />
                   <button
-                    onClick={() => handleQuantityChange(product.prodcode, quantity + 1)}
+                    onClick={() =>
+                      handleQuantityChange(product.prodcode, quantity + 1)
+                    }
                   >
                     +
                   </button>
@@ -167,8 +283,9 @@ const Cart = ({ items }) => {
           );
         })}
       </CartContainer>
+
       <TotalPriceContainer>
-        <div className='total-price'>
+        <div className="total-price">
           <PriceInfoContainer>
             <p>총 상품금액</p>
             <p>{totalPrice.toLocaleString()}원</p>
@@ -182,10 +299,11 @@ const Cart = ({ items }) => {
             <p>{totalPrice.toLocaleString()}원</p>
           </TotalInfoContainer>
         </div>
-        <button>{selectedCount}개 상품 구매하기</button>
+        <button onClick={handleCheckout}>
+          {selectedCount}개 상품 구매하기
+        </button>
       </TotalPriceContainer>
     </StyledCart>
-    // gg
   );
 };
 
