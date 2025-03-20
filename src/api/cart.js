@@ -57,14 +57,14 @@ export const deleteCartItem = async (cartId) => {
   console.log('Cart item deleted successfully');
 };
 
-export const checkoutCartItems = async (prodcodes) => {
+export const checkoutCartItems = async (items) => {
   const response = await fetch('http://localhost:8080/cart/checkout', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     credentials: 'include',
-    body: JSON.stringify(prodcodes),
+    body: JSON.stringify(items),
   });
 
   if (!response.ok) {

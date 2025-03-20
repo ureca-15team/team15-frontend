@@ -145,16 +145,19 @@ const Cart = ({ items, setItems }) => {
 
   const handleCheckout = async () => {
     const selectedProducts = selectedItems.filter((item) => item.selected);
-    const prodcodes = selectedProducts.map((product) => product.prodcode);
+    const itemsToCheckout = selectedProducts.map((product) => ({
+      prodcode: product.prodcode,
+      quantity: product.quantity,
+    }));
     const confirmCheckout = window.confirm(
       `${selectedCount}개 상품을 구매하시겠습니까?`,
     );
     if (!confirmCheckout) {
       return;
     }
-    console.log('구매할 상품 코드:', prodcodes);
+    console.log('구매할 상품:', itemsToCheckout);
     try {
-      await checkoutCartItems(prodcodes);
+      await checkoutCartItems(itemsToCheckout);
       alert('선택한 상품이 구매 목록에 추가되었습니다.');
       setItems((prevItems) =>
         prevItems.filter(
