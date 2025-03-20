@@ -63,26 +63,33 @@ const StyledSlider = styled(Slider)`
     height: 100%;
   }
 
+  .slick-track {
+    display: flex;
+    align-items: center;
+  }
+
   .slick-slide {
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .slick-slide > div {
     outline: none;
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   img {
     width: 100%;
-    height: 104%;
-    min-height: 100%;
+    height: 100%;
+    max-height: 100%;
     object-fit: cover;
-    transition: all 0.1s linear;
-  }
-  img:hover {
-    transform: scale(1.04);
   }
 `;
 
