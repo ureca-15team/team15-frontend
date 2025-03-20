@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
-import theme from "../../lib/styles/theme";
+import styled, { css } from 'styled-components';
+import theme from '../../lib/styles/theme';
 
 const Button = ({ children, size, color, ...rest }) => {
   return (

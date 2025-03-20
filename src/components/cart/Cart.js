@@ -49,7 +49,10 @@ const Cart = ({ items, setItems }) => {
     setTotalPrice(total);
 
     // 제품의 수량을 기준으로 selectedCount 계산
-    const count = selectedProducts.reduce((sum, product) => sum + product.quantity, 0);
+    const count = selectedProducts.reduce(
+      (sum, product) => sum + product.quantity,
+      0,
+    );
     setSelectedCount(count);
 
     // 모두 선택 상태 업데이트
@@ -90,7 +93,7 @@ const Cart = ({ items, setItems }) => {
 
     try {
       await deleteCartItem(cartId);
-      console.log(`Deleted product with cartId: ${cartId}`);
+
       setItems((prevItems) =>
         prevItems.filter((product) => product.cartId !== cartId),
       );
@@ -148,7 +151,7 @@ const Cart = ({ items, setItems }) => {
     if (!confirmCheckout) {
       return;
     }
-    console.log('구매할 상품:', itemsToCheckout);
+
     try {
       await checkoutCartItems(itemsToCheckout);
       alert('선택한 상품이 구매 목록에 추가되었습니다.');

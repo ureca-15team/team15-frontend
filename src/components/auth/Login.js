@@ -6,7 +6,7 @@ import { login } from '../../api/auth';
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errorMessage, setErrorMessage] = useState('');
-  const [loginAttempts, setLoginAttempts] = useState(0); // 로그인 시도 횟수 상태 추가
+  const [loginAttempts, setLoginAttempts] = useState(0);
   const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
 
@@ -24,7 +24,9 @@ const Login = () => {
       const now = new Date();
       if (now < disabledUntil) {
         setDisabled(true);
-        setErrorMessage('로그인 시도가 너무 많습니다.<br />1분 후 다시 시도해주세요.');
+        setErrorMessage(
+          '로그인 시도가 너무 많습니다.<br />1분 후 다시 시도해주세요.',
+        );
         const remainingTime = disabledUntil - now;
         setTimeout(() => {
           setDisabled(false);
@@ -32,7 +34,7 @@ const Login = () => {
           localStorage.setItem('loginDisabled', 'false');
           localStorage.setItem('loginAttempts', '0');
           localStorage.removeItem('loginDisabledUntil');
-          setErrorMessage(''); // 경고 메시지 초기화
+          setErrorMessage('');
         }, remainingTime);
       } else {
         localStorage.setItem('loginDisabled', 'false');
@@ -53,7 +55,7 @@ const Login = () => {
         localStorage.setItem('loginDisabled', 'false');
         localStorage.setItem('loginAttempts', '0');
         localStorage.removeItem('loginDisabledUntil');
-        setErrorMessage(''); // 경고 메시지 초기화
+        setErrorMessage('');
       }, 60000);
     }
   }, [disabled]);
@@ -78,21 +80,24 @@ const Login = () => {
     }
     try {
       const response = await login(formData.email, formData.password);
-      console.log('Response:', response);
-      console.log('Response status:', response.status);
+
       if (response.ok) {
         const data = await response.json();
-        console.log('로그인 성공:', data);
-        setLoginAttempts(0); // 로그인 성공 시 시도 횟수 초기화
+
+        setLoginAttempts(0);
         localStorage.setItem('loginAttempts', '0');
-        navigate('/'); // 로그인 성공 후 홈 화면으로 이동
+        navigate('/');
       } else {
         if (response.status === 429) {
-          setErrorMessage('로그인 시도가 너무 많습니다.<br />1분 후 다시 시도해주세요.');
+          setErrorMessage(
+            '로그인 시도가 너무 많습니다.<br />1분 후 다시 시도해주세요.',
+          );
           setDisabled(true);
         } else {
           const errorData = await response.json();
-          setErrorMessage(`${errorData.message}<br /> (로그인 시도 횟수: ${loginAttempts + 1}/5)`);
+          setErrorMessage(
+            `${errorData.message}<br /> (로그인 시도 횟수: ${loginAttempts + 1}/5)`,
+          );
         }
         setLoginAttempts((prevAttempts) => {
           const newAttempts = prevAttempts + 1;
@@ -107,7 +112,9 @@ const Login = () => {
       }
     } catch (error) {
       console.error('Error:', error);
-      setErrorMessage('네트워크 오류가 발생했습니다. 나중에 다시 시도해주세요.');
+      setErrorMessage(
+        '네트워크 오류가 발생했습니다. 나중에 다시 시도해주세요.',
+      );
     }
   };
 
@@ -137,11 +144,16 @@ const Login = () => {
             onChange={handleChange}
           />
         </div>
-        
+
         <button className="submitButton" type="submit" disabled={disabled}>
           로그인
         </button>
-        {errorMessage && <p className="errorMessage" dangerouslySetInnerHTML={{ __html: errorMessage }}></p>}
+        {errorMessage && (
+          <p
+            className="errorMessage"
+            dangerouslySetInnerHTML={{ __html: errorMessage }}
+          ></p>
+        )}
         <section className="loginSection">
           <Link to="/register">
             <span className="register">회원가입</span>

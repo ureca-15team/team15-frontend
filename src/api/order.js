@@ -1,7 +1,6 @@
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 import API from './axios';
 
-// 주문 목록 조회
 export const fetchOrders = async () => {
   try {
     const response = await API.get('/order', { withCredentials: true });
@@ -12,7 +11,6 @@ export const fetchOrders = async () => {
   }
 };
 
-// 주문 취소
 export const cancelOrder = async (orderId) => {
   try {
     const response = await API.delete(`/order/${orderId}`, {

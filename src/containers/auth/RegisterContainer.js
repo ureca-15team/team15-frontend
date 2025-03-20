@@ -30,11 +30,10 @@ const RegisterContainer = () => {
       [name]: value,
     }));
 
-    // 이메일이 변경되면 중복 확인 상태 초기화
     if (name === 'email' || name === 'emailSelect') {
       setEmailAvailable(null);
       setIsEmailChecked(false);
-      setEmailMessage('이메일 중복 확인을 완료해주세요.'); // ✅ 이메일 변경 시 메시지 설정
+      setEmailMessage('이메일 중복 확인을 완료해주세요.');
     }
 
     if (name === 'password') {
@@ -72,7 +71,7 @@ const RegisterContainer = () => {
 
     setEmailAvailable(null);
     setIsEmailChecked(false);
-    setEmailMessage('이메일 중복 확인을 완료해주세요.'); // ✅ 이메일 변경 시 메시지 설정
+    setEmailMessage('이메일 중복 확인을 완료해주세요.');
   };
 
   const handleCheckEmail = async () => {
@@ -102,7 +101,7 @@ const RegisterContainer = () => {
 
     // 이메일 중복 확인 여부 체크
     if (!isEmailChecked || !emailAvailable) {
-      setEmailMessage('이메일 중복 확인을 완료해주세요.'); // ✅ 회원가입 버튼 클릭 시 메시지 설정
+      setEmailMessage('이메일 중복 확인을 완료해주세요.');
       hasError = true;
     }
 

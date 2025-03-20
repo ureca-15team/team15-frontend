@@ -12,7 +12,6 @@ import {
   PriceInfo,
 } from './Order.style';
 
-
 const Order = ({ orders, onCancelOrder }) => {
   if (!orders || orders.length === 0) {
     return (

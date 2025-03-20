@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { LoginBlock } from "../../components/auth/Login.style";
-import Login from "../../components/auth/Login";
-
+import React, { useState } from 'react';
+import { LoginBlock } from '../../components/auth/Login.style';
+import Login from '../../components/auth/Login';
 
 const LoginContainer = () => {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const handleChange = (e) => {
@@ -17,14 +16,9 @@ const LoginContainer = () => {
     }));
   };
 
-
   return (
     <LoginBlock>
-      <Login
-        formData={formData}
-        handleChange={handleChange}
-        // handleSubmit={handleSubmit}
-      />
+      <Login formData={formData} handleChange={handleChange} />
     </LoginBlock>
   );
 };

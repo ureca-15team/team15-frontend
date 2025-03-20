@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import theme from "../../lib/styles/theme";
+import styled from 'styled-components';
+import theme from '../../lib/styles/theme';
 
 const HeaderBlock = styled.div`
   width: 100vw;
@@ -8,7 +8,7 @@ const HeaderBlock = styled.div`
   height: 75px;
   background-color: ${theme.whiteColor};
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   z-index: 100;
   border-bottom: 2px solid ${theme.lightGrayColor};
@@ -24,15 +24,14 @@ const HeaderBlock = styled.div`
     max-width: 1200px;
     display: flex;
     justify-content: space-between;
-    align-items: center; 
+    align-items: center;
   }
-  
 
   .logo {
     width: 110px;
     min-width: 80px;
     height: 60px;
-    
+
     cursor: pointer;
     img {
       width: 100%;

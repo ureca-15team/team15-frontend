@@ -66,9 +66,5 @@ const Router = () => {
   );
 };
 
-// const AuthRoute = () => {
-//   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-//   return isLoggedIn ? <Navigate to="/" /> : <Outlet />;
-// };
 
 export default Router;

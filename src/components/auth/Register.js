@@ -21,7 +21,6 @@ const Register = ({
       </div>
 
       <form onSubmit={handleSubmit}>
-        {/* 이메일 입력 */}
         <div className="registerDiv">
           <label className="registerlabel">이메일</label>
           <div className="emailDiv">
@@ -53,7 +52,6 @@ const Register = ({
             </span>
           </div>
 
-          {/* 이메일 중복 확인 버튼 */}
           <button
             type="button"
             className="emailCheckButton"
@@ -62,7 +60,6 @@ const Register = ({
             이메일 중복 확인
           </button>
 
-          {/* 이메일 중복 검사 메시지 */}
           {emailMessage && (
             <div
               className={`emailMessage ${emailAvailable ? 'success' : 'error'}`}
@@ -74,7 +71,6 @@ const Register = ({
           )}
         </div>
 
-        {/* 비밀번호 입력 */}
         <div className="registerDiv">
           <label className="registerlabel">비밀번호</label>
           <div className="resisterExplan">
@@ -91,7 +87,6 @@ const Register = ({
           {passwordError && <div className="errorMessage">{passwordError}</div>}
         </div>
 
-        {/* 비밀번호 확인 */}
         <div className="registerDiv">
           <label className="registerlabel">비밀번호 확인</label>
           <input
@@ -107,7 +102,6 @@ const Register = ({
           )}
         </div>
 
-        {/* 닉네임 입력 */}
         <div className="registerDiv">
           <label className="registerlabel">닉네임</label>
           <div className="resisterExplan">
@@ -124,7 +118,6 @@ const Register = ({
           {nicknameError && <div className="errorMessage">{nicknameError}</div>}
         </div>
 
-        {/* 회원가입 버튼 */}
         <button
           type="submit"
           className="submitButton"
@@ -134,7 +127,6 @@ const Register = ({
         </button>
       </form>
 
-      {/* 로그인 페이지로 이동 */}
       <p className="registerHelp">
         이미 아이디가 있으신가요?
         <Link to="/login">로그인</Link>

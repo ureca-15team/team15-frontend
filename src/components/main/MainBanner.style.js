@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import theme from "../../lib/styles/theme";
+import styled from 'styled-components';
+import theme from '../../lib/styles/theme';
 
 const MainBannerBlock = styled.div`
   display: flex;
@@ -14,7 +14,6 @@ const MainBannerBlock = styled.div`
     overflow: hidden;
     border-radius: 4px;
     min-width: 180px;
-    
 
     img {
       /* min-width: 180px; */
@@ -81,9 +80,6 @@ const MainBannerBlock = styled.div`
       letter-spacing: 0.1rem;
       border-radius: 13px;
     }
-
-
-
   }
 `;
 

@@ -6,7 +6,7 @@ const ShopListContainerBlock = styled.div`
 
   max-width: 1200px;
   margin-top: 70px;
-  width: 100%; /* 화면을 꽉 채우도록 수정 */
+  width: 100%;
 
   ${(props) =>
     props.searchItems &&
@@ -18,7 +18,7 @@ const ShopListContainerBlock = styled.div`
     width: 100%;
     font-size: 1.4rem;
     font-weight: bold;
-    text-align: left; /* 왼쪽 정렬 */
+    text-align: left;
   }
 
   li {

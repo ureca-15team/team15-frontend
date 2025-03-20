@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react';
 import { checkLoginStatus, logout } from '../../api/auth';
 
 const Header = () => {
-  console.log('Header 렌더링됨'); // ✅ 콘솔에 몇 번 찍히는지 확인
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [nickname, setNickname] = useState('');
@@ -16,18 +15,18 @@ const Header = () => {
     const fetchLoginStatus = async () => {
       try {
         const data = await checkLoginStatus();
-        console.log('로그인 상태 확인:', data); // 로그인 상태 확인
+
         if (data.message === '로그인 상태 유지 중') {
           setIsLoggedIn(true);
           setNickname(data.nickname);
         } else {
           setIsLoggedIn(false);
-          setNickname(''); // 닉네임 초기화
+          setNickname('');
         }
       } catch (error) {
         console.error('로그인 상태 확인 중 에러 발생:', error);
         setIsLoggedIn(false);
-        setNickname(''); // 닉네임 초기화
+        setNickname('');
       }
     };
 
@@ -57,8 +56,8 @@ const Header = () => {
     try {
       await logout();
       setIsLoggedIn(false);
-      setNickname(''); // 로그아웃 시 닉네임 초기화
-      navigate('/'); // 로그아웃 후 로그인 페이지로 이동
+      setNickname('');
+      navigate('/');
     } catch (error) {
       console.error('로그아웃 중 에러 발생:', error);
     }

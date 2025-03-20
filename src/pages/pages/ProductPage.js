@@ -1,6 +1,4 @@
-
-import ProductContainer from "../../containers/product/ProductContainer";
-
+import ProductContainer from '../../containers/product/ProductContainer';
 
 const ProductPage = () => {
   return (

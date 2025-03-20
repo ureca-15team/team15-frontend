@@ -1,6 +1,5 @@
 import API from './axios';
 
-// 회원가입 요청 함수
 export const registerUser = async (formData) => {
   try {
     const response = await API.post('/member/signup', {
@@ -15,7 +14,6 @@ export const registerUser = async (formData) => {
   }
 };
 
-// 이메일 중복 확인 요청 함수
 export const checkEmailAvailability = async (email) => {
   try {
     const response = await API.post('/member/check-email', { email });

@@ -9,10 +9,6 @@ export const RegisterBlock = styled.section`
   width: 100vw;
   position: relative;
 
-  /* padding-top: 40px;
-  width: calc(100% - 18px);
-  margin: auto; */
-
   img {
     position: absolute;
     top: 20px;

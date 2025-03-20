@@ -6,14 +6,14 @@ export const login = async (email, password) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    credentials: 'include', // 세션 쿠키를 포함하여 요청
+    credentials: 'include',
     body: JSON.stringify({
       email,
       pwd: password,
     }),
   });
 
-  return response; // response 객체 반환
+  return response;
 };
 
 export const checkLoginStatus = async () => {
@@ -22,7 +22,7 @@ export const checkLoginStatus = async () => {
     headers: {
       'Content-Type': 'application/json',
     },
-    credentials: 'include', // 세션 쿠키를 포함하여 요청
+    credentials: 'include',
   });
 
   if (!response.ok) {
@@ -38,7 +38,7 @@ export const logout = async () => {
     headers: {
       'Content-Type': 'application/json',
     },
-    credentials: 'include', // 세션 ID를 포함하여 요청
+    credentials: 'include',
   });
 
   if (!response.ok) {
@@ -46,7 +46,6 @@ export const logout = async () => {
     throw new Error('로그아웃 실패');
   }
   const responseText = await response.text();
-  console.log(responseText); // 로그아웃 성공 메시지 출력
 
   return responseText;
 };

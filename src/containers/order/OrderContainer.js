@@ -20,7 +20,6 @@ const OrderContainer = () => {
         return;
       }
 
-      // 주문 상품 정보 불러오기
       const ordersWithProducts = await Promise.all(
         orderData.map(async (order) => {
           const updatedItems = await Promise.all(
@@ -48,7 +47,6 @@ const OrderContainer = () => {
     loadOrders();
   }, []);
 
-  // 주문 취소 기능 추가
   const handleCancelOrder = async (orderId) => {
     if (window.confirm('정말 주문을 취소하시겠습니까?')) {
       try {

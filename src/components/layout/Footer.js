@@ -27,10 +27,9 @@ const FooterBlock = styled.div`
   margin-top: auto;
   gap: 10px;
   height: 190px;
-  width: 100%;  
+  width: 100%;
 
   background-color: ${theme.lightGrayColor};
-
 
   .emailHelp {
     font-size: 1.2rem;

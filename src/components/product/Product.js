@@ -26,24 +26,22 @@ const Product = ({ item, prodcode }) => {
     setQuantity(value);
   };
 
-  const numericPrice = parseInt(price.replace(/,/g, ''), 10); // 문자열을 숫자로 변환
+  const numericPrice = parseInt(price.replace(/,/g, ''), 10);
   const totalPrice = (numericPrice * quantity).toLocaleString();
 
-  // 바로 구매 버튼 클릭 시 주문 API 호출
   const handleBuyNow = async () => {
     try {
       const response = await buyNow(prodcode, quantity);
-      alert(response); // "구매가 완료되었습니다." 메시지 출력
+      alert(response);
     } catch (error) {
       alert('구매에 실패했습니다.');
     }
   };
 
-  // 장바구니 추가 버튼 클릭 시 API 호출
   const handleAddToCart = async () => {
     try {
       const response = await addToCart(prodcode, quantity);
-      alert(response); // "장바구니에 추가되었습니다." 메시지 출력
+      alert(response);
     } catch (error) {
       alert('장바구니 추가에 실패했습니다.');
     }
@@ -53,7 +51,6 @@ const Product = ({ item, prodcode }) => {
     <StyledProduct>
       <ImageWrapper>
         <img src={require(`../../assets/product/${imageUrl}`)} />
-        
       </ImageWrapper>
 
       <OverviewContainer>

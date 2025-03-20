@@ -1,6 +1,5 @@
 import API from './axios';
 
-// 상품 상세 정보 조회 API
 export const fetchProductDetails = async (prodcode) => {
   try {
     const response = await API.get(`/products/${prodcode}`);
@@ -11,7 +10,6 @@ export const fetchProductDetails = async (prodcode) => {
   }
 };
 
-// 개별 상품 주문 API (바로 구매)
 export const buyNow = async (prodcode, quantity) => {
   try {
     const response = await API.post(
@@ -28,7 +26,6 @@ export const buyNow = async (prodcode, quantity) => {
   }
 };
 
-// 장바구니 추가 API
 export const addToCart = async (prodcode, quantity) => {
   try {
     const response = await API.post(

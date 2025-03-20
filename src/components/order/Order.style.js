@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-// 전체 주문 목록 스타일
 export const OrderWrapper = styled.div`
   width: 100%;
   background-color: rgb(255, 255, 255);
@@ -14,7 +13,6 @@ export const OrderWrapper = styled.div`
   }
 `;
 
-// 개별 주문 항목 스타일
 export const OrderItem = styled.div`
   background: #fff;
   border: 1.99px solid #ebedef;
@@ -23,7 +21,6 @@ export const OrderItem = styled.div`
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
 `;
 
-// 주문 날짜 및 상태
 export const OrderHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -44,7 +41,6 @@ export const OrderStatus = styled.span`
   font-weight: 500;
 `;
 
-// 상품 정보
 export const OrderDetails = styled.div`
   display: flex;
   align-items: center;
@@ -97,7 +93,6 @@ export const PriceInfo = styled.div`
   }
 `;
 
-// 주문 관련 버튼 스타일
 export const OrderActions = styled.div`
   display: flex;
   justify-content: flex-end;

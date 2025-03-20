@@ -1,5 +1,5 @@
-import sale from "../../assets/sale.png";
-import ShopListItemBlock from "./ShopListItem.style";
+import sale from '../../assets/sale.png';
+import ShopListItemBlock from './ShopListItem.style';
 
 const ShopListItem = ({ item }) => {
   const { company, price, prodname, pimg } = item;

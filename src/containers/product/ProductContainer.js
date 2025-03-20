@@ -16,10 +16,10 @@ const ProductContainer = () => {
       if (data) {
         setProduct({
           prodcode: data.prodcode,
-          name: data.prodname, 
+          name: data.prodname,
           company: data.company,
-          price: data.price.toLocaleString(), 
-          imageUrl: data.pimg, // 이미지 경로 설정
+          price: data.price.toLocaleString(),
+          imageUrl: data.pimg, 
           description: data.description,
         });
       }

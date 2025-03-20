@@ -1,4 +1,4 @@
-import CartContainer from "../../containers/cart/CartContainer";
+import CartContainer from '../../containers/cart/CartContainer';
 
 const CartPage = () => {
   return (

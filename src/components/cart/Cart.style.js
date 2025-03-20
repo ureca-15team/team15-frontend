@@ -21,7 +21,7 @@ export const CartContainer = styled.div`
     color: #868e96;
     text-align: center;
     padding: 50px 0;
-    }
+  }
 `;
 
 export const SelectContainer = styled.div`
@@ -255,7 +255,6 @@ export const TotalInfoContainer = styled.div`
   margin-top: 30px;
   display: flex;
   justify-content: space-between;
- 
 
   p:nth-of-type(1) {
     font-size: 14px;

@@ -22,13 +22,12 @@ const ShopListItemBlock = styled.div`
       height: 120%;
       object-fit: cover;
       transform: translate(-50%, -50%);
-
     }
   }
   .itemImg:hover {
-      transform: scale(1.04);
-      border-radius: 6px;
-    }
+    transform: scale(1.04);
+    border-radius: 6px;
+  }
   .contents {
     width: 100%;
     min-height: 150px;
