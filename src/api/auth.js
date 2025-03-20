@@ -11,11 +11,7 @@ export const login = async (email, password) => {
     }),
   });
 
-  if (!response.ok) {
-    throw new Error('로그인 실패');
-  }
-
-  return response.json();
+  return response; // response 객체 반환
 };
 
 export const checkLoginStatus = async () => {

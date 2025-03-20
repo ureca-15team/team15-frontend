@@ -10,7 +10,9 @@ export const LoginBlock = styled.div`
   background-color: #fafafa;
   padding-bottom: 100px;
 
-
+  .errorMessage{
+    text-align: center;
+  }
   .loginBox {
     margin: 0px auto;
     max-width: 300px;

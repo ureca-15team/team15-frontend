@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '../../assets/loginLogo.jpg';
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../../api/auth';
@@ -6,7 +6,25 @@ import { login } from '../../api/auth';
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errorMessage, setErrorMessage] = useState('');
+  const [loginAttempts, setLoginAttempts] = useState(0); // 로그인 시도 횟수 상태 추가
+  const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (disabled === true) {
+      setTimeout(() => {
+        setDisabled(false);
+        setLoginAttempts(0);
+      }, 60000);
+    }
+  }, [disabled]);
+
+  useEffect(() => {
+    const storedAttempts = localStorage.getItem('loginAttempts');
+    if (storedAttempts) {
+      setLoginAttempts(parseInt(storedAttempts, 10));
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,16 +45,37 @@ const Login = () => {
       return;
     }
     try {
-      const data = await login(formData.email, formData.password);
-      console.log('로그인 성공:', data);
-      navigate('/'); // 로그인 성공 후 홈 화면으로 이동
-    } catch (error) {
-      console.error(error.message);
-      if (error.message === '로그인 실패') {
-        setErrorMessage('이메일 혹은 비밀번호를 확인해주세요.');
+      const response = await login(formData.email, formData.password);
+      console.log('Response:', response);
+      console.log('Response status:', response.status);
+      if (response.ok) {
+        const data = await response.json();
+        console.log('로그인 성공:', data);
+        setLoginAttempts(0); // 로그인 성공 시 시도 횟수 초기화
+        localStorage.setItem('loginAttempts', 0);
+        navigate('/'); // 로그인 성공 후 홈 화면으로 이동
       } else {
-        setErrorMessage('로그인 중 오류가 발생했습니다.');
+        if (response.status === 429) {
+          setErrorMessage('로그인 시도가 너무 많습니다.<br />5분 후 다시 시도해주세요.');
+          setDisabled(true);
+        } else {
+          const errorData = await response.json();
+          setErrorMessage(`${errorData.message}<br /> (로그인 시도 횟수: ${loginAttempts + 1}/5)`);
+        }
+        setLoginAttempts((prevAttempts) => {
+          const newAttempts = prevAttempts + 1;
+          if (newAttempts > 5) {
+            localStorage.setItem('loginAttempts', 0);
+            return 0;
+          } else {
+            localStorage.setItem('loginAttempts', newAttempts);
+            return newAttempts;
+          }
+        });
       }
+    } catch (error) {
+      console.error('Error:', error);
+      setErrorMessage('네트워크 오류가 발생했습니다. 나중에 다시 시도해주세요.');
     }
   };
 
@@ -67,10 +106,10 @@ const Login = () => {
           />
         </div>
         
-        <button className="submitButton" type="submit">
+        <button className="submitButton" type="submit" disabled={disabled}>
           로그인
         </button>
-        {errorMessage && <p className="errorMessage">{errorMessage}</p>}
+        {errorMessage && <p className="errorMessage" dangerouslySetInnerHTML={{ __html: errorMessage }}></p>}
         <section className="loginSection">
           <Link to="/register">
             <span className="register">회원가입</span>
