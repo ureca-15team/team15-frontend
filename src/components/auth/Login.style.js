@@ -117,6 +117,10 @@ export const LoginBlock = styled.div`
     &:hover {
       background-color: ${(props) => props.theme.darkprimaryColor};
     }
+    &:disabled {
+      background-color: ${(props) => props.theme.lightGrayColor};
+      cursor: not-allowed;
+    }
   }
 
   .loginHelpSpan {
