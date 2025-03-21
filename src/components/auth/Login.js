@@ -6,17 +6,21 @@ import { login } from '../../api/auth';
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errorMessage, setErrorMessage] = useState('');
-  const [loginAttempts, setLoginAttempts] = useState(0);
+  const [loginAttempts, setLoginAttempts] = useState(0); // 로그인 시도 횟수 상태 추가
   const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedAttempts = localStorage.getItem('loginAttempts');
+    const storedAttempts = localStorage.getItem(
+      `loginAttempts_${formData.email}`,
+    );
     const storedDisabled = localStorage.getItem('loginDisabled');
     const storedDisabledUntil = localStorage.getItem('loginDisabledUntil');
 
     if (storedAttempts) {
       setLoginAttempts(parseInt(storedAttempts, 10));
+    } else {
+      setLoginAttempts(0);
     }
 
     if (storedDisabled === 'true' && storedDisabledUntil) {
@@ -32,17 +36,17 @@ const Login = () => {
           setDisabled(false);
           setLoginAttempts(0);
           localStorage.setItem('loginDisabled', 'false');
-          localStorage.setItem('loginAttempts', '0');
+          localStorage.setItem(`loginAttempts_${formData.email}`, '0');
           localStorage.removeItem('loginDisabledUntil');
-          setErrorMessage('');
+          setErrorMessage(''); // 경고 메시지 초기화
         }, remainingTime);
       } else {
         localStorage.setItem('loginDisabled', 'false');
-        localStorage.setItem('loginAttempts', '0');
+        localStorage.setItem(`loginAttempts_${formData.email}`, '0');
         localStorage.removeItem('loginDisabledUntil');
       }
     }
-  }, []);
+  }, [formData.email]);
 
   useEffect(() => {
     if (disabled === true) {
@@ -53,9 +57,9 @@ const Login = () => {
         setDisabled(false);
         setLoginAttempts(0);
         localStorage.setItem('loginDisabled', 'false');
-        localStorage.setItem('loginAttempts', '0');
+        localStorage.setItem(`loginAttempts_${formData.email}`, '0');
         localStorage.removeItem('loginDisabledUntil');
-        setErrorMessage('');
+        setErrorMessage(''); // 경고 메시지 초기화
       }, 60000);
     }
   }, [disabled]);
@@ -66,11 +70,6 @@ const Login = () => {
       ...prevData,
       [name]: value,
     }));
-  
-    if (name === 'email') {
-      setLoginAttempts(0);
-      localStorage.setItem('loginAttempts', '0');
-    }
   };
 
   const handleSubmit = async (e) => {
@@ -85,13 +84,14 @@ const Login = () => {
     }
     try {
       const response = await login(formData.email, formData.password);
-
+      console.log('Response:', response);
+      console.log('Response status:', response.status);
       if (response.ok) {
         const data = await response.json();
-
-        setLoginAttempts(0);
-        localStorage.setItem('loginAttempts', '0');
-        navigate('/');
+        console.log('로그인 성공:', data);
+        setLoginAttempts(0); // 로그인 성공 시 시도 횟수 초기화
+        localStorage.setItem(`loginAttempts_${formData.email}`, '0');
+        navigate('/'); // 로그인 성공 후 홈 화면으로 이동
       } else {
         if (response.status === 429) {
           setErrorMessage(
@@ -107,10 +107,13 @@ const Login = () => {
         setLoginAttempts((prevAttempts) => {
           const newAttempts = prevAttempts + 1;
           if (newAttempts > 5) {
-            localStorage.setItem('loginAttempts', '0');
+            localStorage.setItem(`loginAttempts_${formData.email}`, '0');
             return 0;
           } else {
-            localStorage.setItem('loginAttempts', newAttempts.toString());
+            localStorage.setItem(
+              `loginAttempts_${formData.email}`,
+              newAttempts.toString(),
+            );
             return newAttempts;
           }
         });
