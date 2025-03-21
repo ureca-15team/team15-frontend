@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-  Navigate,
-  Outlet,
-} from 'react-router-dom';
+import { Route, Routes, HashRouter } from 'react-router-dom';
 import Template from '../containers/layout/Template';
 import MainPage from '../pages/pages/MainPage';
 import LoginPage from '../pages/auth/LoginPage';
@@ -18,7 +12,7 @@ import ProtectedRoute from './ProtectedRoute';
 
 const Router = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <ScrollToTop />
       <Routes>
         <Route
@@ -62,9 +56,8 @@ const Router = () => {
           <Route path="/register" element={<RegisterPage />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
-
 
 export default Router;

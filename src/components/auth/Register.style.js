@@ -20,7 +20,6 @@ export const RegisterBlock = styled.section`
   }
 
   .registerBox {
-    padding-top: 100px;
     width: 360px;
     margin: 0px auto;
 
