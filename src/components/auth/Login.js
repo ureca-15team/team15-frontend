@@ -66,6 +66,11 @@ const Login = () => {
       ...prevData,
       [name]: value,
     }));
+  
+    if (name === 'email') {
+      setLoginAttempts(0);
+      localStorage.setItem('loginAttempts', '0');
+    }
   };
 
   const handleSubmit = async (e) => {
