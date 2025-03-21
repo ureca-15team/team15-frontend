@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# [내일의집] - 라이프 스타일 리빙 쇼핑몰
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About
 
-## Available Scripts
+> 리빙스타일 제품 판매 플랫폼 오늘의집을 벤치마킹하여 가구, 인테리어, 생활가전용품 등의 쇼핑 플랫폼
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 배포 사이트
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- http://ureca-team15-env.eba-4tu3mkrm.ap-northeast-2.elasticbeanstalk.com/#/
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Preview
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Home
+![내일의집-메인](https://github.com/user-attachments/assets/59905dca-e789-41da-9ebf-3c899f5b5be6)
+![내일의집-쇼핑리스트](https://github.com/user-attachments/assets/8e89cb2f-c289-4bee-9979-550ee1661fea)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Order
+![내일의집-상세구매페이지](https://github.com/user-attachments/assets/ce699378-9e7b-4be6-b4e3-138d58974849)
+![내일의집-구매목록](https://github.com/user-attachments/assets/0d5ea97f-2b39-41f6-ac46-6b6899843351)
 
-### `npm run eject`
+### Cart
+![내일의집-장바구니](https://github.com/user-attachments/assets/de7aa3a4-68ef-4112-a0a5-adef22fbc5d3)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 기술 스택
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Base: React v19
+- Language: Javascript
+- Styling: styled-component
+- HTTP w/server: axios v1.7
+- Package Manger: npm
+- Infra: AWS Elastic Beanstalk
+- Code Rule & Formatting: Prettier, eslint
